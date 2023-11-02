@@ -2,7 +2,9 @@
 -- Chung Man Chan
 -- Minyoung Shin
 
--- SELECT
+--------------------------------
+------------ SELECT ------------
+--------------------------------
 -- select all Customers
 SELECT customer_id, first_name, last_name, phone FROM Customers;
 -- select all Cats
@@ -25,7 +27,28 @@ INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id
 INNER JOIN Cats ON Cats.cat_id = Reservations.cat_id
 INNER JOIN Room_Types ON Room_Types.room_id = Reservations.room_id;
 
--- INSERT
+------ DROPDOWN MENUS ------
+-- get customer's data to populate dropdown menus
+SELECT CONCAT(Customers.customer_id, " : ", Customers.first_name, " ", Customers.last_name) FROM Customers;
+-- get cat's data to populate dropdown menus
+SELECT CONCAT(Cats.cat_id, " : ", Cats.cat_name) FROM Cats;
+-- get service's data to populate dropdown menus
+SELECT CONCAT(Services.service_id, " : ", Services.service_name) FROM Services;
+-- select customer name, cat name, reservation check in date to populate dropdown menu to represent reservations in Purchased Services
+SELECT CONCAT(Customers.first_name, " | ", Customers.last_name, " | ", Cats.cat_name, " | ", Reservations.check_in_date) FROM Reservations
+INNER JOIN Cats ON Reservations.cat_id = Cats.cat_id
+INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;
+----------------------------
+
+-- select cat name to populate cat delete form
+SELECT cat_name FROM Cats WHERE cat_id = :cat_id;
+-- select cats belonging to a specific customer to populate dropdown list
+SELECT CONCAT(Cats.cat_id, " : ", Cats.cat_name) FROM Cats WHERE Cats.customer_id = :customer_id;
+
+
+--------------------------------
+------------ INSERT ------------
+--------------------------------
 -- insert a customer
 INSERT INTO Customers (first_name, last_name, phone) VALUES (:first_name, :last_name, :phone);
 -- insert a cat
@@ -39,7 +62,10 @@ INSERT INTO Reservatios (customer_id, room_id, check_in_date, check_out_date) VA
 -- insert a new service - reservation relationship
 INSERT INTO Purchased_Services (service_id, res_id, quantity) VALUES (:service_id, :res.id, :quantity);
 
--- UPDATE
+
+--------------------------------
+------------ UPDATE ------------
+--------------------------------
 -- Update a customer
 UPDATE Customers SET first_name = :new_first_name, lastName = :new_last_name, phone = :new_phone WHERE customer_id = :customer_id;
 -- update a cat
@@ -54,7 +80,9 @@ UPDATE Reservations SET customer_id = :new_customer_id, room_id = :new_room_id, 
 UPDATE Purchased_Services SET service_id = :new_service_id , res_id = :new_res_id, quantity = :new_quantity WHERE purchase_id = :purchase_id;
 
 
--- DELETE
+--------------------------------
+------------ DELETE ------------
+--------------------------------
 -- delete a customer
 DELETE FROM Customers WHERE customer_id = :customer_id;
 -- delete a cat
