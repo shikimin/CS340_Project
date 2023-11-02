@@ -1,0 +1,116 @@
+<html>
+<head>
+    <title>Customers</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Customers</h1>
+    <a href="customers.html">Customers</a> || <a href="cats.html">Cats</a> || <a href="reservations.html">Reservations</a> || <a href="services.html">Services</a> || <a href="purchased_services.html">Purchased Services</a>|| <a href="room_types.html">Room Types</a>
+    <p>&nbsp;</p>
+    <div id="tablediv">
+        <table border="1" cellpadding="5">
+            <caption style="text-align:left"><strong>Browse existing customers:</strong></caption>
+            <thead>
+                <tr>
+                    <th>customer_id</th>
+                    <th>first_name</th>
+                    <th>last_name</th>
+                    <th>phone</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Cole</td>
+                        <td>Spencer</td>
+                        <td>8707651234</td>
+                        <td><a href="#">Edit</a></td>
+                        <td><a href="#">Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Andrew</td>
+                        <td>Coleman</td>
+                        <td>7033142424</td>
+                        <td><a href="#">Edit</a></td>
+                        <td><a href="#">Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Mohammed</td>
+                        <td>Hancock</td>
+                        <td>7324802182</td>
+                        <td><a href="#">Edit</a></td>
+                        <td><a href="#">Delete</a></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Monica</td>
+                        <td>Kalinina</td>
+                        <td>5615260588</td>
+                        <td><a href="#">Edit</a></td>
+                        <td><a href="#">Delete</a></td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="addform">
+        <form>
+            <fieldset>
+                <legend><strong>Add New Customer</strong></legend>
+                <label for="fname">First Name: </label>
+                <input type="text" id="first_name" name="first_name">
+                <label for="lname">Last Name: </label>
+                <input type="text" id="last_name" name="last_name">
+                <label for="phone">Phone Number: </label>
+                <input type="text" id="phone" name="phone"><br>
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <div class="updateform">
+        <form>
+            <fieldset>
+                <legend><strong>Update Existing Customer</strong></legend>
+                <label for="customer_id">Customer ID: </label>
+                <input type="text" id="customer_id" name="customer_id" value="1">
+                <label for="fname">First Name: </label>
+                <input type="text" id="first_name" name="first_name" value="Cole">
+                <label for="lname">Last Name: </label>
+                <input type="text" id="last_name" name="last_name" value="Spencer">
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" value="8707651234"><br>
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <!-- <div class="deleteform">
+        <form>
+            <fieldset>
+                <legend><strong>Delete Existing Customer</strong></legend>
+                <p>Click Confirm to delete the following customer:</p>
+                <label for="customer_id">Customer ID: 1</label>
+                <label for="fname">First Name: </label>
+                <input type="text" id="first_name" name="first_name" value="Cole">
+                <label for="lname">Last Name: </label>
+                <input type="text" id="last_name" name="last_name" value="Spencer">
+                <input type="hidden" name="customer_id" value="1">
+            </fieldset>
+            <input type="submit" value="Confirm">
+            <input type="button" value="Reset">
+          </form>
+    </div> -->
+
+
+
+</body>
+</html>

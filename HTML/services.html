@@ -1,0 +1,101 @@
+<html>
+<head>
+    <title>Services</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Services</h1>
+    <a href="customers.html">Customers</a> || <a href="cats.html">Cats</a> || <a href="reservations.html">Reservations</a> || <a href="services.html">Services</a> || <a href="purchased_services.html">Purchased Services</a>|| <a href="room_types.html">Room Types</a>
+    <p>&nbsp;</p>
+    <div>
+        <table border="1" cellpadding="4">
+            <caption style="text-align:left"><strong>Browse existing services:</strong></caption>
+            <thead>
+                <tr>
+                    <th>service_id</th>
+                    <th>service_name</th>
+                    <th>service_price</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Grooming</td>
+                    <td>120.99</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Massaging</td>
+                    <td>80.99</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Aromatherapy</td>
+                    <td>60.99</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Play Time</td>
+                    <td>45.99</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>&nbsp;</p>
+
+    <div class="addform">
+        <form>
+            <fieldset>
+                <legend><strong>Add New Service</strong></legend>
+                <label for="service_name">Service Name: </label>
+                <input type="text" id="service_name" name="service_name">
+                <label for="price">Price: </label>
+                <input type="text" id="price" name="price">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <div class="updateform">
+        <form>
+            <fieldset>
+                <legend><strong>Update Existing Service</strong></legend>
+                <label for="service_id">Service ID: </label>
+                <input type="text" id="service_id" name="service_id" value="1">
+                <label for="service_name">Service Name: </label>
+                <input type="text" id="service_name" name="service_name" value="Grooming">
+                <label for="price">Price: </label>
+                <input type="text" id="price" name="price" value="120.99">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <div class="deleteform">
+        <form>
+            <fieldset>
+                <legend><strong>Delete Existing Service</strong></legend>
+                <p>Click Confirm to delete the following service:</p>
+                <label for="service_id">Service ID: 1</label>
+                <label for="service_name">Service Name: Grooming</label>
+                <input type="hidden" name="service_id" value="1">
+            </fieldset>
+            <input type="submit" value="Confirm">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+</body>
+</html>

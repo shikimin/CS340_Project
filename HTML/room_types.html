@@ -1,0 +1,103 @@
+<html>
+<head>
+    <title>Room Types</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Room Types</h1>
+    <a href="customers.html">Customers</a> || <a href="cats.html">Cats</a> || <a href="reservations.html">Reservations</a> || <a href="services.html">Services</a> || <a href="purchased_services.html">Purchased Services</a>|| <a href="room_types.html">Room Types</a>
+    <p>&nbsp;</p>
+    <div>
+        <table border="1" cellpadding="4">
+            <caption style="text-align:left"><strong>Browse existing room types:</strong></caption>
+            <thead>
+                <tr>
+                    <th>room_id</th>
+                    <th>room_name</th>
+                    <th>rate</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Single</td>
+                    <td>40.32</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Double</td>
+                    <td>50.28</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Master</td>
+                    <td>60.84</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Emperor</td>
+                    <td>78.98</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="addform">
+        <form>
+            <fieldset>
+                <legend><strong>Add New Room Type</strong></legend>
+                <label for="room_name">Room Name: </label>
+                <input type="text" id="room_name" name="room_name">
+                <label for="rate">Rate: </label>
+                <input type="text" id="rate" name="rate">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <div class="updateform">
+        <form>
+            <fieldset>
+                <legend><strong>Update Existing Room Type</strong></legend>
+                <label for="room_id">Room ID: </label>
+                <input type="text" id="room_id" name="room_id" value="1">
+                <label for="room_name">Room Name: </label>
+                <input type="text" id="room_name" name="room_name" value="Single">
+                <label for="rate">Rate: </label>
+                <input type="text" id="rate" name="rate" value="40.32">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <div class="deleteform">
+        <form>
+            <fieldset>
+                <legend><strong>Delete Existing Room Type</strong></legend>
+                <p>Click Confirm to delete the following room type:</p>
+                <label for="room_id">Room ID: 1</label>
+                <label for="room_name">Room Name: Single</label>
+                <label for="rate">Rate: 40.32</label>
+                <input type="hidden" name="room_id" value="1">
+            </fieldset>
+            <input type="submit" value="Confirm">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+</body>
+</html>

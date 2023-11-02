@@ -1,0 +1,122 @@
+<html>
+<head>
+    <title>Cats</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Cats</h1>
+    <a href="customers.html">Customers</a> || <a href="cats.html">Cats</a> || <a href="reservations.html">Reservations</a> || <a href="services.html">Services</a> || <a href="purchased_services.html">Purchased Services</a>|| <a href="room_types.html">Room Types</a>
+    <p>&nbsp;</p>
+    <div>
+        <table border="1" cellpadding="5">
+            <caption style="text-align:left"><strong>Browse existing cats:</strong></caption>
+            <thead>
+                <tr>
+                    <th>cat_id</th>
+                    <th>customer_id</th>
+                    <th>cat_name</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>Reginald</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>1</td>
+                    <td>Okra</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>Mr. Death</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>3</td>
+                    <td>Concha</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>4</td>
+                    <td>Baby</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="addform">
+        <form>
+            <fieldset>
+                <legend><strong>Add New Cat</strong></legend>
+                <label for="customer_id">Customer: </label>
+                <select name="customer_id">
+                    <option value="0" selected></option>
+                    <option value="1">1: Cole Spencer</option>
+                    <option value="2">2: Andrew Coleman</option>
+                    <option value="3">3: Mohammed Hancock</option>
+                    <option value="4">4: Monica Kalinina</option>
+                    </select>
+                <label for="cat_name">Cat Name: </label>
+                <input type="text" id="cat_name" name="cat_name">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <div class="updateform">
+        <form>
+            <fieldset>
+                <legend><strong>Update Existing Cat</strong></legend>
+                <label for="cat_id">Cat ID: </label>
+                <input type="text" id="cat_id" name="cat_id" value="1">
+                <label for="customer_id">Customer: </label>
+                <select name="customer_id">
+                    <option value="0"></option>
+                    <option value="1" selected>1: Cole Spencer</option>
+                    <option value="2">2: Andrew Coleman</option>
+                    <option value="3">3: Mohammed Hancock</option>
+                    <option value="4">4: Monica Kalinina</option>
+                </select>
+                <label for="cat_name">Cat Name: </label>
+                <input type="text" id="cat_name" name="cat_name" value="Reginald">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <div class="deleteform">
+        <form>
+            <fieldset>
+                <legend><strong>Delete Existing Cat</strong></legend>
+                <p>Click Confirm to delete the following cat:</p>
+                <label for="cat_id">Cat ID: 1</label>
+                <label for="cat_name">Cat Name: </label>
+                <input type="text" id="cat_name" name="cat_name" value="Reginald">
+                <input type="hidden" name="cat_id" value="1">
+            </fieldset>
+            <input type="submit" value="Confirm">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+</body>
+</html>
