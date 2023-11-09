@@ -6,17 +6,53 @@
 ------------ SELECT ------------
 --------------------------------
 -- select all Customers
-SELECT customer_id, first_name, last_name, phone FROM Customers;
+SELECT customer_id AS Customer ID, 
+    first_name AS "First Name", 
+    last_name AS "Last Name", 
+    phone AS "Phone"
+    FROM Customers;
+
 -- select all Cats
-SELECT cat_id, customer_id, cat_name FROM Cats;
+SELECT cat_id AS "Cat ID", 
+    CONCAT(Customers.first_name, " ", Customers.last_name) AS "Customer", 
+    cat_name AS "Cat Name" 
+    FROM Cats
+    INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;
+
 -- select all Services
-SELECT service_id, service_name, service_price FROM Services;
+SELECT service_id AS "Service ID", 
+    service_name AS "Service Name", 
+    service_price AS "Price" FROM Services;
+
 -- select all Reservations
-SELECT res_id, customer_id, cat_id, room_id, check_in_date, check_out_date FROM Reservations;
+SELECT Reservations.res_id AS "Res ID", 
+    CONCAT(Customers.first_name, " ", Customers.last_name) AS "Customer", 
+    Cats.cat_name AS "Cat",
+    Room_Types.room_name AS "Room Type", 
+    check_in_date AS "Check In Date", 
+    check_out_date AS "Check Out Date" 
+    FROM Reservations
+    INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id
+    INNER JOIN Cats ON Cats.cat_id = Reservations.cat_id
+    INNER JOIN Room_Types ON Room_Types.room_id = Reservations.room_id
+    ORDER BY Reservations.res_id ASC;
+
 -- select all Room_Types
-SELECT room_id, room_name, rate FROM Room_Types;
+SELECT room_id AS "Room ID", 
+    room_name AS "Room Name", 
+    rate AS "Rate"
+    FROM Room_Types;
+
 -- select all Purchased_Services
-SELECT purchase_id, service_id, res_id, quantity FROM Purchased_Services;
+SELECT Purchased_Services.purchase_id AS "Purchase ID", 
+    Services.service_name AS "Service ID", 
+    CONCAT(Customers.first_name, " ", Customers.last_name, " | ", Cats.cat_name, " | ", Reservations.check_in_date) AS "Reservation", 
+    Purchased_Services.quantity AS "Quantity" 
+    FROM Purchased_Services
+    INNER JOIN Services ON Services.service_id = Purchased_Services.service_id
+    INNER JOIN Reservations ON Reservations.res_id = Purchased_Services.res_id
+    INNER JOIN Cats ON Reservations.cat_id = Cats.cat_id
+    INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;
 
 -- select all Cats with customers name
 SELECT cat_id, cat_name, CONCAT(Customers.first_name, " ", Customers.last_name) AS customer_name FROM Cats
@@ -35,7 +71,7 @@ SELECT CONCAT(Cats.cat_id, " : ", Cats.cat_name) FROM Cats;
 -- get service's data to populate dropdown menus
 SELECT CONCAT(Services.service_id, " : ", Services.service_name) FROM Services;
 -- select customer name, cat name, reservation check in date to populate dropdown menu to represent reservations in Purchased Services
-SELECT CONCAT(Customers.first_name, " | ", Customers.last_name, " | ", Cats.cat_name, " | ", Reservations.check_in_date) FROM Reservations
+SELECT CONCAT(Customers.first_name, " ", Customers.last_name, " | ", Cats.cat_name, " | ", Reservations.check_in_date) FROM Reservations
 INNER JOIN Cats ON Reservations.cat_id = Cats.cat_id
 INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;
 ----------------------------
