@@ -1,0 +1,115 @@
+<!-- 
+    Citation for the following page:
+    Date: 11/2/2023
+    Based on sample HTML pages from:
+    Source URL: https://canvas.oregonstate.edu/courses/1933532/assignments/9297505?module_item_id=23359472
+ -->
+
+<html>
+    {{!-- jQuery for deleting rows --}}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <head>
+        <title>Cats</title>
+        {{!-- <link href="style.css" rel="stylesheet" type="text/css" /> --}}
+    </head>
+
+    <body>
+        <h1>Cats</h1>
+        <a href="/">Home</a> || <a href="customers.html">Customers</a> || <a href="/cats">Cats</a> || <a href="reservations.html">Reservations</a> || <a href="services.html">Services</a> || <a href="purchased_services.html">Purchased Services</a> || <a href="room_types.html">Room Types</a>
+        <p>&nbsp;</p>
+        
+        {{!-- Display table data --}}
+        <div class="table">
+            <table id="cat-table" border="1" cellpadding="5">
+                <caption style="text-align:left"><strong>Browse existing cats:</strong></caption>
+                <thead>
+                    <tr>
+                        <th>Cat ID</th>
+                        <th>Customer</th>
+                        <th>Cat Name</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {{#each data}}
+                    <tr data-value={{this.cat_id}}>
+                        <td>{{this.cat_id}}</td>
+                        <td>{{this.customer}}</td>
+                        <td>{{this.cat_name}}</td>
+                        <td><a href="#">Edit</a></td>
+                        <td><a href="javascript:void(0);" onclick="moveText({{this.cat_id}}, '{{this.cat_name}}', 'cat_id_delete', 'cat_name_delete')">Delete</a></td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+                <script src="../js/move_text.js"></script>
+            </table>
+        </div>
+
+        <p>&nbsp;</p>
+        
+        {{!-- Adding rows --}}
+        <div class="addform">
+            <form id="add-cat-form" method="POST" action="/add-cat-form">
+                <fieldset>
+                    <legend><strong>Add New Cat</strong></legend>
+                    <label for="customer_id">Customer: </label>
+                    <select name="customer_id" id="customer_id">
+                        <option value="" selected></option>
+                        {{#each customers}}
+                        <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
+                        {{/each}}
+                        </select>
+                    <label for="cat_name">Cat Name: </label>
+                    <input type="text" id="cat_name" name="cat_name">
+                </fieldset>
+                <input type="submit" value="Submit">
+                <input type="button" value="Reset">
+            </form>
+        </div>
+
+        {{!-- Updating Rows --}}
+        <div class="updateform">
+            <form>
+                <fieldset>
+                    <legend><strong>Update Existing Cat</strong></legend>
+                    <label for="cat_id">Cat ID: </label>
+                    <input type="text" id="cat_id" name="cat_id" value="1">
+                    <label for="customer_id">Customer: </label>
+                    <select name="customer_id">
+                        <option value="" selected></option>
+                        {{#each customers}}
+                        <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
+                        {{/each}}
+                        </select>
+                    <label for="cat_name">Cat Name: </label>
+                    <input type="text" id="cat_name" name="cat_name" value="Reginald">
+                </fieldset>
+                <input type="submit" value="Submit">
+                <input type="button" value="Reset">
+            </form>
+        </div>
+
+        {{!-- Deleting Rows --}}
+        <div class="deleteform">
+            <form id="delete-cat-form">
+                <fieldset>
+                    <legend><strong>Delete Existing Cat</strong></legend>
+                    <p>Click Confirm to delete the following cat:</p>
+                    <label for="cat_id_delete">Cat ID: </label>
+                    <input type="text" id="cat_id_delete" name="cat_id_delete" value="1">
+                    <label for="cat_name">Cat Name: </label>
+                    <input type="text" id="cat_name_delete" name="cat_name_delete" value="Reginald">
+                    <input type="hidden" name="cat_id" value="1">
+                </fieldset>
+                <input type="button" value="Confirm" onclick="deleteCat(document.getElementById('cat_id_delete').value)">
+                <input type="button" value="Reset">
+            </form>
+            <script src="../js/delete_cat.js"></script>
+        </div>
+
+
+    </body>
+</html>
