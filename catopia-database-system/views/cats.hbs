@@ -72,24 +72,25 @@
 
         {{!-- Updating Rows --}}
         <div class="updateform">
-            <form>
+            <form id="update-cat-form">
                 <fieldset>
                     <legend><strong>Update Existing Cat</strong></legend>
                     <label for="cat_id">Cat ID: </label>
                     <input type="text" id="cat_id" name="cat_id" value="1">
                     <label for="customer_id">Customer: </label>
-                    <select name="customer_id">
+                    <select name="customer_id" id="update_customer_id">
                         <option value="" selected></option>
                         {{#each customers}}
                         <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                         {{/each}}
                         </select>
                     <label for="cat_name">Cat Name: </label>
-                    <input type="text" id="cat_name" name="cat_name" value="Reginald">
+                    <input type="text" id="new_cat_name" name="cat_name" value="Reginald">
                 </fieldset>
                 <input type="submit" value="Submit">
                 <input type="button" value="Reset">
             </form>
+            <script src="../js/update_cat.js"></script>
         </div>
 
         {{!-- Deleting Rows --}}
