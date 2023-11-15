@@ -24,7 +24,7 @@ updateCatForm.addEventListener("submit", (e) => {
         customerID: customerIDValue,
         newCatName: newCatNameValue
     }
-    console.log(data);
+
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
     xhttp.open("PUT", "/put-cat-ajax", true);
@@ -35,7 +35,7 @@ updateCatForm.addEventListener("submit", (e) => {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, newCatNameValue);
+            updateRow(xhttp.response, idValue);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -50,19 +50,19 @@ updateCatForm.addEventListener("submit", (e) => {
 
 function updateRow(data, catID){
     let parsedData = JSON.parse(data);
-    
+
     let table = document.getElementById("cat-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
+
        //iterate through rows
        //rows would be accessed using the "row" variable assigned in the for loop
        if (table.rows[i].getAttribute("data-value") == catID) {
-
             // Get the location of the row where we found the matching Cat ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            let td = updateRowIndex.getElementsByTagName("td")[3];
-            td.innerHTML = parsedData[0].name; 
+            let td = updateRowIndex.getElementsByTagName("td")[2];
+            td.innerHTML = parsedData[0].cat_name; 
             break;
        }
     }

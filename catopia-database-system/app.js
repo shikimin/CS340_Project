@@ -81,6 +81,7 @@ app.put('/put-cat-ajax', (req,res,next) => {
     let newCatName = data.newCatName;
     
     let queryUpdateCat = `UPDATE Cats SET cat_name = "${newCatName}" WHERE cat_id = ${catID};`;
+    let selectCat = `SELECT * FROM Cats WHERE cat_id = ?`
   
           // Run the 1st query
           db.pool.query(queryUpdateCat, [catID, customerID, newCatName], function(error, rows, fields){
@@ -95,9 +96,20 @@ app.put('/put-cat-ajax', (req,res,next) => {
             // table on the front-end
             else
             {
-                res.send(rows);
+                 // Run the second query
+                 db.pool.query(selectCat, [catID], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
             }
   })});
+
+
 // Delete Cat
 app.delete('/delete-cat-ajax/', function(req,res,next){
     let data = req.body;
