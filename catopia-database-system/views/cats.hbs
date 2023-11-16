@@ -39,8 +39,8 @@
                         <td>{{this.cat_id}}</td>
                         <td>{{this.customer}}</td>
                         <td>{{this.cat_name}}</td>
-                        <td><a href="#">Edit</a></td>
-                        <td><a href="javascript:void(0);" onclick="moveText({{this.cat_id}}, '{{this.cat_name}}', 'cat_id_delete', 'cat_name_delete')">Delete</a></td>
+                        <td><a href="javascript:void(0);" onclick="moveText([{{this.cat_id}}, {{#each customers}}{{this.customer_id}}{{/each}}, '{{this.cat_name}}'], ['cat_id_update', 'customer_id_update', 'cat_name_update'])">Edit</a></td>
+                        <td><a href="javascript:void(0);" onclick="moveText([{{this.cat_id}}, '{{this.cat_name}}'], ['cat_id_delete', 'cat_name_delete'])">Delete</a></td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -75,17 +75,19 @@
             <form id="update-cat-form">
                 <fieldset>
                     <legend><strong>Update Existing Cat</strong></legend>
-                    <label for="cat_id">Cat ID: </label>
-                    <input type="text" id="cat_id" name="cat_id" value="1">
-                    <label for="customer_id">Customer: </label>
-                    <select name="customer_id" id="update_customer_id">
-                        <option value="" selected></option>
+                    <label for="cat_id_update">Cat ID: </label>
+                    <input type="text" id="cat_id_update" name="cat_id_update" value="1">
+
+                    <label for="customer_id_update">Customer: </label>
+                    <select name="customer_id_update" id="customer_id_update">
+                        <option value=""></option>
                         {{#each customers}}
                         <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                         {{/each}}
                         </select>
-                    <label for="cat_name">Cat Name: </label>
-                    <input type="text" id="new_cat_name" name="cat_name" value="Reginald">
+
+                    <label for="cat_name_update">Cat Name: </label>
+                    <input type="text" id="cat_name_update" name="cat_name_update" value="Reginald">
                 </fieldset>
                 <input type="submit" value="Submit">
                 <input type="button" value="Reset">

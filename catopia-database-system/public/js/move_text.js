@@ -1,5 +1,9 @@
-function moveText(catID, catName, destination1, destination2) {
-    document.getElementById(destination1).value = catID;
-    document.getElementById(destination2).value = catName;
-    document.getElementById(destination1).scrollIntoView();
+function moveText(data, destinations) {
+    console.log(data);
+    for (let i = 0; i < data.length; i++) {
+        console.log(document.getElementById(destinations[i]).value)
+        document.getElementById(destinations[i]).value = data[i];
+    }
+
+    document.getElementById(destinations[0]).scrollIntoView();
 };

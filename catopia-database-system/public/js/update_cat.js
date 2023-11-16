@@ -9,9 +9,9 @@ updateCatForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputID = document.getElementById("cat_id");
-    let inputCustomerID = document.getElementById("update_customer_id");
-    let inputNewCatName = document.getElementById("new_cat_name");
+    let inputID = document.getElementById("cat_id_update");
+    let inputCustomerID = document.getElementById("customer_id_update");
+    let inputNewCatName = document.getElementById("cat_name_update");
 
     // Get the values from the form fields
     let idValue = inputID.value;
