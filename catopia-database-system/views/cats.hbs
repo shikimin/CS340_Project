@@ -16,9 +16,8 @@
 
     <body>
         <h1>Cats</h1>
-        <a href="/">Home</a> || <a href="customers.html">Customers</a> || <a href="/cats">Cats</a> || <a href="reservations.html">Reservations</a> || <a href="services.html">Services</a> || <a href="purchased_services.html">Purchased Services</a> || <a href="room_types.html">Room Types</a>
+        <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>        
         <p>&nbsp;</p>
-        
         {{!-- Display table data --}}
         <div class="table">
             <table id="cat-table" border="1" cellpadding="5">
@@ -39,7 +38,7 @@
                         <td>{{this.cat_id}}</td>
                         <td>{{this.customer}}</td>
                         <td>{{this.cat_name}}</td>
-                        <td><a href="javascript:void(0);" onclick="moveText([{{this.cat_id}}, {{#each customers}}{{this.customer_id}}{{/each}}, '{{this.cat_name}}'], ['cat_id_update', 'customer_id_update', 'cat_name_update'])">Edit</a></td>
+                        <td><a href="javascript:void(0);" onclick="moveText([{{this.cat_id}}, '{{this.customer}}', '{{this.cat_name}}'], ['cat_id_update', 'customer_id_update', 'cat_name_update'])">Edit</a></td>
                         <td><a href="javascript:void(0);" onclick="moveText([{{this.cat_id}}, '{{this.cat_name}}'], ['cat_id_delete', 'cat_name_delete'])">Delete</a></td>
                     </tr>
                     {{/each}}
@@ -71,7 +70,7 @@
         </div>
 
         {{!-- Updating Rows --}}
-        <div class="updateform">
+        <div class="updateform" style="display:none">
             <form id="update-cat-form">
                 <fieldset>
                     <legend><strong>Update Existing Cat</strong></legend>
@@ -80,7 +79,7 @@
 
                     <label for="customer_id_update">Customer: </label>
                     <select name="customer_id_update" id="customer_id_update">
-                        <option value=""></option>
+                        <option value="" selected></option>
                         {{#each customers}}
                         <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                         {{/each}}
@@ -96,7 +95,7 @@
         </div>
 
         {{!-- Deleting Rows --}}
-        <div class="deleteform">
+        <div class="deleteform" style="display:none">
             <form id="delete-cat-form">
                 <fieldset>
                     <legend><strong>Delete Existing Cat</strong></legend>

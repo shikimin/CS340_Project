@@ -33,7 +33,7 @@ app.get('/', function(req, res)
 app.get('/cats', function(req, res)
     {  
         let query1 = "SELECT cat_id, CONCAT(Customers.first_name, ' ', Customers.last_name) AS 'customer', cat_name FROM Cats INNER JOIN Customers ON Customers.customer_id = Cats.customer_id ORDER BY cat_id ASC;";               // Define our query
-        let query2 = "SELECT customer_id, CONCAT(Customers.customer_id, ' : ', Customers.first_name, ' ', Customers.last_name) AS 'customer_dropdown' FROM Customers;";
+        let query2 = "SELECT customer_id, CONCAT(Customers.first_name, ' ', Customers.last_name) AS 'customer_dropdown' FROM Customers;";
 
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
             let cats = rows;
@@ -45,6 +45,19 @@ app.get('/cats', function(req, res)
             
         })
     });
+
+// Get Customers
+app.get('/customers', function(req, res)
+    {  
+        let query = "SELECT * FROM Customers ORDER BY customer_id ASC;";
+
+        db.pool.query(query, function(error, rows, fields){    // Execute the query
+            let customers = rows;
+            return res.render('customers', {data: customers});
+            
+        })
+    });
+
 
 // Create new cat
 app.post('/add-cat-form', function(req, res){
@@ -72,6 +85,36 @@ app.post('/add-cat-form', function(req, res){
     })
 })
 
+// Create new customer
+app.post('/add-customer-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Customers (first_name, last_name, phone) VALUES ('${data['first_name']}', '${data['last_name']}', '${data['phone']}');`;
+
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/customers');
+        }
+    })
+})
+
+
+
+
 // Update Cat
 app.put('/put-cat-ajax', (req,res,next) => {
     let data = req.body;
@@ -80,7 +123,7 @@ app.put('/put-cat-ajax', (req,res,next) => {
     let customerID = parseInt(data.customerID);
     let newCatName = data.newCatName;
     
-    let queryUpdateCat = `UPDATE Cats SET cat_name = "${newCatName}" WHERE cat_id = ${catID};`;
+    let queryUpdateCat = `UPDATE Cats SET customer_id = "${customerID}", cat_name = "${newCatName}" WHERE cat_id = ${catID};`;
     let selectCat = `SELECT * FROM Cats WHERE cat_id = ?`
   
           // Run the 1st query
@@ -98,6 +141,45 @@ app.put('/put-cat-ajax', (req,res,next) => {
             {
                  // Run the second query
                  db.pool.query(selectCat, [catID], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+  })});
+
+
+  // Update Customer
+app.put('/put-customer-ajax', (req,res,next) => {
+    let data = req.body;
+  
+    let customerID = parseInt(data.customerID);
+    let firstName = data.firstName;
+    let lastName = data.lastName;
+    let phone = data.phone;
+    
+    let queryUpdateCustomer = `UPDATE Customers SET first_name = "${firstName}", last_name = "${lastName}", phone = "${phone}" WHERE customer_id = ${customerID};`;
+    let selectCustomer = `SELECT * FROM Customers WHERE customer_id = ?`
+  
+          // Run the 1st query
+          db.pool.query(queryUpdateCustomer, [customerID, firstName, lastName, phone], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                 // Run the second query
+                 db.pool.query(selectCustomer, [customerID], function(error, rows, fields) {
 
                     if (error) {
                         console.log(error);

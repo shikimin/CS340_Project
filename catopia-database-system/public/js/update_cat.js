@@ -60,9 +60,10 @@ function updateRow(data, catID){
        if (table.rows[i].getAttribute("data-value") == catID) {
             // Get the location of the row where we found the matching Cat ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-
+            
             let td = updateRowIndex.getElementsByTagName("td")[2];
             td.innerHTML = parsedData[0].cat_name; 
+            window.location.reload()
             break;
        }
     }
