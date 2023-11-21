@@ -215,14 +215,12 @@ app.delete('/delete-cat-ajax/', function(req,res,next){
 
 // Get Room_Types
 app.get('/room_types', function(req, res) {  
-        let query = "SELECT * FROM Room_Types ORDER BY room_id ASC;";
-
-        db.pool.query(query, function(error, rows, fields){    // Execute the query
+        let query1 = "SELECT * FROM Room_Types ORDER BY room_id ASC;";
+        db.pool.query(query1, function(error, rows, fields){    // Execute the query
             let room_types = rows;
-            return res.render('room_types', {data: room_types});
-            
-        })
-    });
+            return res.render('room_types', {data: room_types, room: room_dropdown});
+        });
+});
 
 // Create new room_type
 app.post('/add-room-form', function(req, res){
@@ -247,6 +245,24 @@ app.post('/add-room-form', function(req, res){
 });
 
 // Update Room_Type
+
+// Delete Room_Type
+app.delete('/delete-room-ajax/', function(req,res,next){
+    let data = req.body;
+    let roomID = parseInt(data.id);
+    let delete_room = `DELETE FROM Room_Types WHERE room_id = ?`;
+  
+        db.pool.query(delete_room, [roomID], function(error, rows, fields){
+            if (error) {
+            console.log(error);
+            res.sendStatus(400);
+            }
+            else
+            {
+            res.sendStatus(204);
+            }
+        })
+    });
 
 
 /*
