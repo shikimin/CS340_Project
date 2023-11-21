@@ -248,7 +248,23 @@ app.post('/add-room-form', function(req, res){
 
 // Update Room_Type
 
-
+// Delete Room_Type
+app.delete('/delete-room-ajax/', function(req,res,next){
+    let data = req.body;
+    let roomID = parseInt(data.id);
+    let delete_room = `DELETE FROM Room_Types WHERE room_id = ?`;
+  
+        db.pool.query(delete_room, [roomID], function(error, rows, fields){
+            if (error) {
+            console.log(error);
+            res.sendStatus(400);
+            }
+            else
+            {
+            res.sendStatus(204);
+            }
+        })
+    });
 /*
     LISTENER
 */
