@@ -213,6 +213,40 @@ app.delete('/delete-cat-ajax/', function(req,res,next){
         })
     });
 
+// Get Room_Types
+app.get('/room_types', function(req, res) {  
+        let query = "SELECT * FROM Room_Types ORDER BY room_id ASC;";
+
+        db.pool.query(query, function(error, rows, fields){    // Execute the query
+            let room_types = rows;
+            return res.render('room_types', {data: room_types});
+            
+        })
+    });
+
+// Create new room_type
+app.post('/add-room-form', function(req, res){
+    let data = req.body;
+    console.log(data);
+    // Check if room name and rate are empty
+    if (data['room_name'] == "" || data['rate'] == "")
+    {
+        // error message?
+    }
+    let query1 = `INSERT INTO Room_Types (room_name, rate) VALUES ('${data['room_name']}', '${data['rate']}');`;
+    db.pool.query(query1, function(error, rows, fields){
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            res.redirect('/room_types');
+        }
+    });
+});
+
+// Update Room_Type
 
 
 /*

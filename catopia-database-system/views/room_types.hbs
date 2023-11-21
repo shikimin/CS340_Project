@@ -1,0 +1,91 @@
+<!-- 
+    Citation for the following page:
+    Date: 11/2/2023
+    Based on sample HTML pages from:
+    Source URL: https://canvas.oregonstate.edu/courses/1933532/assignments/9297505?module_item_id=23359472
+ -->
+
+<html>
+<head>
+    <title>Room Types</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Room Types</h1>
+    <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>
+    <p>&nbsp;</p>
+    <div>
+        <table border="1" cellpadding="4">
+            <caption style="text-align:left"><strong>Browse existing room types:</strong></caption>
+            <thead>
+                <tr>
+                    <th>Room ID</th>
+                    <th>Room Name</th>
+                    <th>Rate</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data}}
+                <tr>
+                    <td>{{this.room_id}}</td>
+                    <td>{{this.room_name}}</td>
+                    <td>{{this.rate}}</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                {{/each}}                
+            </tbody>
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="add-room-form">
+        <form class="add-room-form" method="POST" action="/add-room-form">
+            <fieldset>
+                <legend><strong>Add New Room Type</strong></legend>
+                <label for="room_name">Room Name: </label>
+                <input type="text" id="add-room-name" name="room_name">
+                <label for="rate">Rate: </label>
+                <input type="text" id="add-rate" name="rate">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <div class="update-room-form">
+        <form>
+            <fieldset>
+                <legend><strong>Update Existing Room Type</strong></legend>
+                <label for="room_id">Room ID: </label>
+                <input type="text" id="update_room_id" name="room_id" value="1">
+                <label for="room_name">Room Name: </label>
+                <input type="text" id="update_room_name" name="room_name" value="Single">
+                <label for="rate">Rate: </label>
+                <input type="text" id="update_rate" name="rate" value="40.32">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+    <div class="deleteform">
+        <form>
+            <fieldset>
+                <legend><strong>Delete Existing Room Type</strong></legend>
+                <p>Click Confirm to delete the following room type:</p>
+                <label for="room_id">Room ID: 1</label>
+                <label for="room_name">Room Name: Single</label>
+                <label for="rate">Rate: 40.32</label>
+                <input type="hidden" name="delete_room_id" value="1">
+            </fieldset>
+            <input type="submit" value="Confirm">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+
+</body>
+</html>
