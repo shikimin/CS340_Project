@@ -58,6 +58,18 @@ app.get('/customers', function(req, res)
         })
     });
 
+// Get Services
+app.get('/services', function(req, res)
+    {  
+        let query = "SELECT * FROM Services ORDER BY service_id ASC;";
+
+        db.pool.query(query, function(error, rows, fields){    // Execute the query
+            let services = rows;
+            return res.render('services', {data: services});
+            
+        })
+    });
+
 
 // Create new cat
 app.post('/add-cat-form', function(req, res){
@@ -108,6 +120,32 @@ app.post('/add-customer-form', function(req, res){
         else
         {
             res.redirect('/customers');
+        }
+    })
+})
+
+// Create new service
+app.post('/add-service-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Services (service_name, service_price) VALUES ('${data['service_name']}', '${data['service_price']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/services');
         }
     })
 })
@@ -191,16 +229,73 @@ app.put('/put-customer-ajax', (req,res,next) => {
             }
   })});
 
+  // Update Services
+  app.put('/put-service-ajax', (req,res,next) => {
+    let data = req.body;
+  
+    let serviceID = parseInt(data.serviceID);
+    let serviceName = data.serviceName;
+    let price = parseFloat(data.price);
+    
+    let queryUpdateService = `UPDATE Services SET service_name = "${serviceName}", service_price = "${price}" WHERE service_id = ${serviceID};`;
+    let selectService = `SELECT * FROM Services WHERE service_id = ?`
+  
+          // Run the 1st query
+          db.pool.query(queryUpdateService, [serviceID, serviceName, price], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                 // Run the second query
+                 db.pool.query(selectService, [serviceID], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+  })});
+
 
 // Delete Cat
 app.delete('/delete-cat-ajax/', function(req,res,next){
     let data = req.body;
     let catID = parseInt(data.id);
-    let delete_cat = `DELETE FROM Cats WHERE cat_id = ?`;
+    let deleteCat = `DELETE FROM Cats WHERE cat_id = ?`;
   
-        db.pool.query(delete_cat, [catID], function(error, rows, fields){
+        db.pool.query(deleteCat, [catID], function(error, rows, fields){
             if (error) {
 
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            else
+            {
+            res.sendStatus(204);
+            }
+        })
+    });
+
+// Delete Service
+app.delete('/delete-service-ajax/', function(req,res,next){
+    let data = req.body;
+    let serviceID = parseInt(data.id);
+    let deleteService = `DELETE FROM Services WHERE service_id = ?`;
+  
+        db.pool.query(deleteService, [serviceID], function(error, rows, fields){
+            if (error) {
             // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
             res.sendStatus(400);

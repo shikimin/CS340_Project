@@ -1,0 +1,100 @@
+<!-- 
+    Citation for the following page:
+    Date: 11/2/2023
+    Based on sample HTML pages from:
+    Source URL: https://canvas.oregonstate.edu/courses/1933532/assignments/9297505?module_item_id=23359472
+ -->
+
+<html>
+    {{!-- jQuery for deleting rows --}}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<head>
+    <title>Services</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Services</h1>
+    <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>
+    <p>&nbsp;</p>
+    <div id="tablediv">
+        <table id="service-table" border="1" cellpadding="5">
+            <caption style="text-align:left"><strong>Browse existing services:</strong></caption>
+            <thead>
+                <tr>
+                    <th>Service ID</th>
+                    <th>Service Name</th>
+                    <th>Service Price</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+                <tbody>
+                    <tr>
+                    {{#each data}}
+                    <tr data-value={{this.service_id}}>
+                        <td>{{this.service_id}}</td>
+                        <td>{{this.service_name}}</td>
+                        <td>{{this.service_price}}</td>
+                        <td><a href="javascript:void(0);" onclick="moveText([{{this.service_id}}, '{{this.service_name}}', {{this.service_price}}], ['service_id_update', 'service_name_update', 'price_update'])">Edit</a></td>
+                        <td><a href="javascript:void(0);" onclick="moveText([{{this.service_id}}, '{{this.service_name}}'], ['service_id_delete', 'service_name_delete'])">Delete</a></td>
+                    {{/each}}
+                    </tr>
+            </tbody>
+            <script src="../js/move_text.js"></script>
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    {{!-- Adding rows --}}
+    <div class="addform">
+        <form id="add-service-form" method="POST" action="/add-service-form">
+            <fieldset>
+                <legend><strong>Add New Service</strong></legend>
+                <label for="service_name">Service Name: </label>
+                <input type="text" id="service_name" name="service_name">
+                <label for="price">Price: </label>
+                <input type="text" id="price" name="price">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+    </div>
+    
+    {{!-- Updating Rows --}}
+    <div class="updateform" style="display:none" style="display:none">
+        <form id="update-service-form">
+            <fieldset>
+                <legend><strong>Update Existing Service</strong></legend>
+                <label for="service_id">Service ID: </label>
+                <input type="text" id="service_id_update" name="service_id_update" value="">
+                <label for="service_name">Service Name: </label>
+                <input type="text" id="service_name_update" name="service_name_update" value="">
+                <label for="price">Price: </label>
+                <input type="text" id="price_update" name="price_update" value="">
+            </fieldset>
+            <input type="submit" value="Submit">
+            <input type="button" value="Reset">
+          </form>
+          <script src="../js/update_service.js"></script>
+    </div>
+
+    {{!-- Deleting Rows --}}
+    <div class="deleteform" style="display:none">
+        <form id="delete-service-form">
+            <fieldset>
+                <legend><strong>Delete Existing Service</strong></legend>
+                <p>Click Confirm to delete the following service:</p>
+                <label for="service_id_delete">Service ID: </label>
+                <input type="text" id="service_id_delete" name="service_id_delete" value="">
+                <label for="service_name_delete">Service Name: </label>
+                <input type="text" id="service_name_delete" name="service_name_delete" value="">
+            </fieldset>
+            <input type="button" value="Confirm" onclick="deleteService(document.getElementById('service_id_delete').value)">
+            <input type="button" value="Reset">
+        </form>
+        <script src="../js/delete_service.js"></script>
+    </div>
+
+</body>
+</html>
