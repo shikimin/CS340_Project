@@ -47,7 +47,7 @@
             <fieldset>
                 <legend><strong>Add New Room Type</strong></legend>
                 <label for="add-room-name">Room Name: </label>
-                <input type="text" id="add-room-name" name="add-room_name">
+                <input type="text" id="add-room-name" name="add-room-name">
                 <label for="add-rate">Rate: </label>
                 <input type="text" id="add-rate" name="add-rate">
             </fieldset>
@@ -56,8 +56,8 @@
           </form>
     </div>
 
-    <div class="update-room-form">
-        <form>
+    <div class="update-form">
+        <form id="update-room-form">
             <fieldset>
                 <legend><strong>Update Existing Room Type</strong></legend>
                 <label for="room_id_update">Room ID: </label>
@@ -70,7 +70,7 @@
             <input type="submit" value="Submit">
             <input type="button" value="Reset">
           </form>
-          <script src="../js/update_room_types.js"></script>
+          <script src="./js/update_room_types.js"></script>
     </div>
 
     <div class="delete-form">
@@ -86,7 +86,7 @@
             <input type="submit" value="Confirm" onclick="deleteRoom(document.getElementById('room_id_delete').value)">
             <input type="button" value="Reset">
           </form>
-              <script src="./js/delete_room.js"></script>
+          <script src="./js/delete_room.js"></script>
     </div>
 
     <script src="./js/move_text.js"></script>

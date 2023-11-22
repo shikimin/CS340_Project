@@ -313,20 +313,19 @@ app.get('/room_types', function(req, res) {
         let query1 = "SELECT * FROM Room_Types ORDER BY room_id ASC;";
         db.pool.query(query1, function(error, rows, fields){    // Execute the query
             let room_types = rows;
-            return res.render('room_types', {data: room_types, room: room_dropdown});
+            return res.render('room_types', {data: room_types});
         });
 });
 
 // Create new room_type
 app.post('/add-room-form', function(req, res){
     let data = req.body;
-    console.log(data);
     // Check if room name and rate are empty
-    if (data['room_name'] == "" || data['rate'] == "")
+    if (data['add-room-name'] == "" || data['add-rate'] == "")
     {
         // error message?
     }
-    let query1 = `INSERT INTO Room_Types (room_name, rate) VALUES ('${data['room_name']}', '${data['rate']}');`;
+    let query1 = `INSERT INTO Room_Types (room_name, rate) VALUES ('${data['add-room-name']}', '${data['add-rate']}');`;
     db.pool.query(query1, function(error, rows, fields){
         if (error) {
             console.log(error)
@@ -338,8 +337,6 @@ app.post('/add-room-form', function(req, res){
         }
     });
 });
-
-// Update Room_Type
 
 // Delete Room_Type
 app.delete('/delete-room-ajax/', function(req,res,next){
@@ -359,6 +356,35 @@ app.delete('/delete-room-ajax/', function(req,res,next){
         })
     });
 
+// Update Room_Type
+app.put('/put-room-ajax', (req,res,next) => {
+    let data = req.body;
+
+    let roomID = parseInt(data.roomID);
+    let roomName = data.roomName;
+    let rate = parseFloat(data.rate);
+
+    let queryUpdateRoom = `UPDATE Room_Types SET room_name = "${roomName}", rate = "${rate}" WHERE room_id = ${roomID};`;
+    let selectRoom = `SELECT * FROM Room_Types WHERE room_id = ?`
+    
+    db.pool.query(queryUpdateRoom, [roomID, roomName, rate], function(error, rows, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else
+        {
+            db.pool.query(selectRoom, [roomID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 
 /*
     LISTENER
