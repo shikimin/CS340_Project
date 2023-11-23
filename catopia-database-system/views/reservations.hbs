@@ -53,7 +53,7 @@
             <fieldset>
                 <legend><strong>Add New Reservation</strong></legend>
                 <label for="customer_id">Customer: </label>
-                    <select name="customer_id" id="customer_id" onchange="loadCats(this.value)">
+                    <select name="customer_id" onchange="loadCats(this.value,'cat-dropdown-add')">
                     <option value="" selected></option>
                     {{#each customers}}
                     <option value="{{this.customer_id}}">{{this.customer_id}}. {{this.customer_dropdown}}</option>
@@ -61,7 +61,7 @@
                     </select><br>
                 <!-- Options for selectable cats to be determined by customer chosen -->
                 <label for="cat_id">Cat: </label>
-                <select name="cat_id" id="cat-dropdown">
+                <select name="cat_id" id="cat-dropdown-add">
                     <option value="" selected></option>
                     {{#each cats}}
                     <option value="{{this.cat_id}}">{{this.cat_dropdown}}</option>
@@ -94,34 +94,30 @@
                 <label for="res_id">Reservation ID: </label>
                 <input type="text" id="res_id" name="res_id" value="1"><br>
                 <label for="customer_id">Customer ID: </label>
-                <select name="customer_id">
-                    <option value="0"></option>
-                    <option value="1" selected>1: Cole Spencer</option>
-                    <option value="2">2: Andrew Coleman</option>
-                    <option value="3">3: Mohammed Hancock</option>
-                    <option value="4">4: Monica Kalinina</option>
+                <select name="customer_id" onchange="loadCats(this.value, 'cat-dropdown-update')">
+                <option value="" selected></option>
+                {{#each customers}}
+                <option value="{{this.customer_id}}">{{this.customer_id}}. {{this.customer_dropdown}}</option>
+                {{/each}}
                 </select><br>
                 <label for="cat_id">Cat: </label>
-                <select name="cat_id">
-                    <option value="0">NULL</option>
-                    <option value="1" selected>1: Reginald</option>
-                    <option value="2">2: Okra</option>
-                    <option value="3">3: Mr. Death</option>
-                    <option value="4">4: Concha</option>
-                    <option value="5">5: Baby</option>
+                <select name="cat_id" id="cat-dropdown-update">
+                    <option value="" selected></option>
+                    {{#each cats}}
+                    <option value="{{this.cat_id}}">{{this.cat_dropdown}}</option>
+                    {{/each}}
                 </select><br>
                 <label for="room_id">Room Type: </label>
                 <select name="room_id">
-                    <option value="0"></option>
-                    <option value="1" selected>1: Single</option>
-                    <option value="2">2: Double</option>
-                    <option value="3">3: Master</option>
-                    <option value="4">4: Emperor</option>
+                    <option value="0" selected></option>
+                    {{#each rooms}}
+                    <option value={{this.room_id}}>{{this.room_dropdown}}</option>
+                    {{/each}}
                 </select><br>
                 <label for="lname">Check-In Date: </label>
-                <input type="text" id="check_in" name="check_in" value="2023-06-23"><br>
+                <input type="date" id="check_in" name="check_in" value="2023-06-23"><br>
                 <label for="phone">Check-Out Date: </label>
-                <input type="text" id="check_out" name="check_out" value="2023-06-27"><br>
+                <input type="date" id="check_out" name="check_out" value="2023-06-27"><br>
             </fieldset>
             <div class="buttons" align="center">            
                 <input type="submit" value="Submit">
@@ -135,7 +131,8 @@
             <fieldset>
                 <legend><strong>Delete Existing Reservation</strong></legend>
                 <p>Click Confirm to delete the following reservation:</p>
-                <label for="res_id">Reservation ID: 1</label><br>
+                <label for="res_id">Reservation:</label><br>
+                <span name="res_id_update" value="1">
                 <label for="customer_id">Customer: Cole Spencer</label><br>
                 <label for="fname">Room Type: Single</label><br>
                 <label for="lname">Check-In Date: 2023-06-23</label><br>
