@@ -1,0 +1,153 @@
+<!-- 
+    Citation for the following page:
+    Date: 11/2/2023
+    Based on sample HTML pages from:
+    Source URL: https://canvas.oregonstate.edu/courses/1933532/assignments/9297505?module_item_id=23359472
+ -->
+
+<html>
+<head>
+    <title>Reservations</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <h1>Reservations</h1>
+    <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>
+    <p>&nbsp;</p>
+    <div>
+        <table border="1" cellpadding="4">
+            <caption style="text-align:left"><strong>Browse existing reservations:</strong></caption>
+            <thead>
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Customer</th>
+                    <th>Cat</th>
+                    <th>Room Type</th>
+                    <th>Check In Date</th>
+                    <th>Check Out Date</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data}}
+                <tr data-value={{this.res_id}}>
+                    <td>{{this.res_id}}</td>
+                    <td>{{this.customer_name}}</td>
+                    <td>{{this.cat_name}}</td>
+                    <td>{{this.room_name}}</td>
+                    <td>{{this.check_in_date}}</td>
+                    <td>{{this.check_out_date}}</td>
+                    <td><a href="#">Edit</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="addform" style="float:left">
+        <form class="add-res-form" method="POST" action="/add-res-form">
+            <fieldset>
+                <legend><strong>Add New Reservation</strong></legend>
+                <label for="customer_id">Customer: </label>
+                    <select name="customer_id" id="customer_id" onchange="loadCats(this.value)">
+                    <option value="" selected></option>
+                    {{#each customers}}
+                    <option value="{{this.customer_id}}">{{this.customer_id}}. {{this.customer_dropdown}}</option>
+                    {{/each}}
+                    </select><br>
+                <!-- Options for selectable cats to be determined by customer chosen -->
+                <label for="cat_id">Cat: </label>
+                <select name="cat_id" id="cat-dropdown">
+                    <option value="" selected></option>
+                    {{#each cats}}
+                    <option value="{{this.cat_id}}">{{this.cat_dropdown}}</option>
+                    {{/each}}
+                </select><br>
+                <label for="room_id">Room Type: </label>
+                <select name="room_id">
+                    <option value="0" selected></option>
+                    {{#each rooms}}
+                    <option value={{this.room_id}}>{{this.room_dropdown}}</option>
+                    {{/each}}
+                </select><br>
+                <label for="check_in">Check-In Date: </label>
+                <input type="date" id="check_in" name="check_in"><br>
+                <label for="check_out">Check-Out Date: </label>
+                <input type="date" id="check_out" name="check_out"><br>
+            </fieldset>
+            <div class="buttons" align="center">            
+                <input type="submit" value="Submit">
+                <input type="button" value="Reset">
+            </div>
+          </form>
+    </div>
+    <script src="./js/load_cats.js"></script>
+
+    <div class="updateform" style="float:left">
+        <form>
+            <fieldset>
+                <legend><strong>Update Existing Reservation</strong></legend>
+                <label for="res_id">Reservation ID: </label>
+                <input type="text" id="res_id" name="res_id" value="1"><br>
+                <label for="customer_id">Customer ID: </label>
+                <select name="customer_id">
+                    <option value="0"></option>
+                    <option value="1" selected>1: Cole Spencer</option>
+                    <option value="2">2: Andrew Coleman</option>
+                    <option value="3">3: Mohammed Hancock</option>
+                    <option value="4">4: Monica Kalinina</option>
+                </select><br>
+                <label for="cat_id">Cat: </label>
+                <select name="cat_id">
+                    <option value="0">NULL</option>
+                    <option value="1" selected>1: Reginald</option>
+                    <option value="2">2: Okra</option>
+                    <option value="3">3: Mr. Death</option>
+                    <option value="4">4: Concha</option>
+                    <option value="5">5: Baby</option>
+                </select><br>
+                <label for="room_id">Room Type: </label>
+                <select name="room_id">
+                    <option value="0"></option>
+                    <option value="1" selected>1: Single</option>
+                    <option value="2">2: Double</option>
+                    <option value="3">3: Master</option>
+                    <option value="4">4: Emperor</option>
+                </select><br>
+                <label for="lname">Check-In Date: </label>
+                <input type="text" id="check_in" name="check_in" value="2023-06-23"><br>
+                <label for="phone">Check-Out Date: </label>
+                <input type="text" id="check_out" name="check_out" value="2023-06-27"><br>
+            </fieldset>
+            <div class="buttons" align="center">            
+                <input type="submit" value="Submit">
+                <input type="button" value="Reset">
+            </div>
+          </form>
+    </div>
+
+    <div class="deleteform" style="float:left">
+        <form>
+            <fieldset>
+                <legend><strong>Delete Existing Reservation</strong></legend>
+                <p>Click Confirm to delete the following reservation:</p>
+                <label for="res_id">Reservation ID: 1</label><br>
+                <label for="customer_id">Customer: Cole Spencer</label><br>
+                <label for="fname">Room Type: Single</label><br>
+                <label for="lname">Check-In Date: 2023-06-23</label><br>
+                <label for="phone">Check-Out Date: 2023-06-27</label><br>
+                <input type="hidden" name="res_id" value="1">
+            </fieldset>
+            <div class="buttons" align="center">            
+                <input type="submit" value="Confirm">
+                <input type="button" value="Reset">
+            </div>
+          </form>
+    </div>
+
+</body>
+</html>
