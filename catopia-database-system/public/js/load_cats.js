@@ -4,7 +4,6 @@
  */
 function loadCats(customerID) {
     const link = '/get-cats/' + customerID;
-    console.log(link);
     var xhttp = new XMLHttpRequest();
     xhttp.open('GET', link, true);
     xhttp.setRequestHeader('Content-type', 'application/json');
