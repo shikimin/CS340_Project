@@ -326,8 +326,8 @@ app.get('/reservations', function(req, res) {
                 CONCAT(Customers.first_name, " ", Customers.last_name) AS "customer_name", 
                 Cats.cat_name AS "cat_name",
                 Room_Types.room_name AS "room_name", 
-                DATE_FORMAT(check_in_date, '%d %M, %Y') AS "check_in_date", 
-                DATE_FORMAT(check_out_date, '%d %M, %Y') AS "check_out_date" 
+                DATE_FORMAT(check_in_date, '%Y/%c/%d') AS "check_in_date", 
+                DATE_FORMAT(check_out_date, '%Y/%c/%d') AS "check_out_date" 
                 FROM Reservations
                 INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id
                 INNER JOIN Cats ON Cats.cat_id = Reservations.cat_id
