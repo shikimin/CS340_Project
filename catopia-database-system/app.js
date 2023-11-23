@@ -46,6 +46,21 @@ app.get('/cats', function(req, res)
         })
     });
 
+// Get Cats with customer ID, Data for the dropdown menu
+app.get('/get-cats/:id', function(req, res) {  
+        let query = `SELECT cat_id, cat_name FROM Cats 
+                    INNER JOIN Customers ON Customers.customer_id = Cats.customer_id 
+                    WHERE Cats.customer_id = ${req.params.id} ORDER BY cat_id ASC;`;               // Define our query
+
+        db.pool.query(query, function(error, rows, fields) {
+            if (error) {
+                res.status(500).json({ error: error.message });
+            } else {
+                res.json({ cats: rows });
+            }
+        });
+});
+
 // Get Customers
 app.get('/customers', function(req, res)
     {  
@@ -149,9 +164,6 @@ app.post('/add-service-form', function(req, res){
         }
     })
 })
-
-
-
 
 // Update Cat
 app.put('/put-cat-ajax', (req,res,next) => {
@@ -308,13 +320,66 @@ app.delete('/delete-service-ajax/', function(req,res,next){
         })
     });
 
+// Get Reservations
+app.get('/reservations', function(req, res) {
+    let query = `SELECT Reservations.res_id AS "res_id", 
+                CONCAT(Customers.first_name, " ", Customers.last_name) AS "customer_name", 
+                Cats.cat_name AS "cat_name",
+                Room_Types.room_name AS "room_name", 
+                DATE_FORMAT(check_in_date, '%d %M, %Y') AS "check_in_date", 
+                DATE_FORMAT(check_out_date, '%d %M, %Y') AS "check_out_date" 
+                FROM Reservations
+                INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id
+                INNER JOIN Cats ON Cats.cat_id = Reservations.cat_id
+                INNER JOIN Room_Types ON Room_Types.room_id = Reservations.room_id
+                ORDER BY Reservations.res_id ASC;`;
+
+    let query1 = `SELECT customer_id, CONCAT(Customers.first_name, ' ', Customers.last_name) AS 'customer_dropdown' FROM Customers;`;
+    let query2 = `SELECT cat_id, CONCAT(cat_id, '. ' , cat_name) as cat_dropdown FROM Cats;`;
+    let query3 = `SELECT room_id, CONCAT(room_name, ': $',rate) as room_dropdown FROM Room_Types;`;
+    db.pool.query(query, function(error, rows, fields){
+        let reservations = rows;
+        db.pool.query(query1, function(error, rows, fields){
+            let customers = rows;
+            db.pool.query(query2, function(error, rows, fields){
+                let cats = rows;
+                db.pool.query(query3, function(error, rows, fields){
+                    let rooms = rows;
+                    return res.render('reservations', {data: reservations, customers: customers, cats: cats, rooms: rooms});
+                })
+            })
+        })
+    });
+});
+
+// Create new reservation
+app.post('/add-res-form', function(req, res){
+    let data = req.body;
+    console.log(data);
+    // Check if room name and rate are empty
+    if (data['customer_id'] == "" || data['cat_id'] == "" || data['room_id'] == "" || data['check_in'] == "" || data['check_out'] == "") {
+        // error message?
+    }
+    let query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', '${data['cat_id']}', '${data['room_id']}', '${data['check_in']}', '${data['check_out']}');`;
+    
+    db.pool.query(query1, function(error, rows, fields){
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/reservations');
+        }
+    });
+});
+
 // Get Room_Types
 app.get('/room_types', function(req, res) {  
-        let query1 = "SELECT * FROM Room_Types ORDER BY room_id ASC;";
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
-            let room_types = rows;
-            return res.render('room_types', {data: room_types});
-        });
+    let query1 = "SELECT * FROM Room_Types ORDER BY room_id ASC;";
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+        let room_types = rows;
+        return res.render('room_types', {data: room_types});
+    });
 });
 
 // Create new room_type
