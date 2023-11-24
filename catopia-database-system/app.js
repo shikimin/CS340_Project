@@ -85,6 +85,36 @@ app.get('/services', function(req, res)
         })
     });
 
+// Get Services
+app.get('/purchased_services', function(req, res)
+    {  
+        let query = `SELECT Purchased_Services.purchase_id AS "purchase_id", 
+        Services.service_name AS "service_name", 
+        CONCAT(Customers.first_name, " ", Customers.last_name, " | ", Cats.cat_name, " | ", Reservations.check_in_date) AS "reservation", 
+        Purchased_Services.quantity AS "quantity" 
+        FROM Purchased_Services
+        INNER JOIN Services ON Services.service_id = Purchased_Services.service_id
+        INNER JOIN Reservations ON Reservations.res_id = Purchased_Services.res_id
+        INNER JOIN Cats ON Reservations.cat_id = Cats.cat_id
+        INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;`;
+
+        let query2 = `SELECT service_id, CONCAT(service_id, " : ", service_name) as 'services_dropdown' FROM Services ORDER BY service_id ASC;`
+        let query3 = `SELECT res_id, CONCAT(Customers.first_name, " ", Customers.last_name, " | ", Cats.cat_name, " | ", Reservations.check_in_date) AS 'reservations_dropdown' FROM Reservations
+        INNER JOIN Cats ON Reservations.cat_id = Cats.cat_id
+        INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;`
+
+        db.pool.query(query, function(error, rows, fields){
+            let purchases = rows;
+            db.pool.query(query2, function(error, rows, fields){
+                let services = rows;
+                db.pool.query(query3, function(error, rows, fields){
+                    let reservations = rows;
+                        return res.render('purchased_services', {data: purchases, services: services, reservations: reservations});
+                    })
+                })
+        });
+    });
+
 
 // Create new cat
 app.post('/add-cat-form', function(req, res){
@@ -110,7 +140,7 @@ app.post('/add-cat-form', function(req, res){
             res.redirect('/cats');
         }
     })
-})
+});
 
 // Create new customer
 app.post('/add-customer-form', function(req, res){
@@ -137,7 +167,7 @@ app.post('/add-customer-form', function(req, res){
             res.redirect('/customers');
         }
     })
-})
+});
 
 // Create new service
 app.post('/add-service-form', function(req, res){
@@ -145,7 +175,7 @@ app.post('/add-service-form', function(req, res){
     let data = req.body;
 
     // Create the query and run it on the database
-    query1 = `INSERT INTO Services (service_name, service_price) VALUES ('${data['service_name']}', '${data['service_price']}')`;
+    query1 = `INSERT INTO Services (service_name, service_price) VALUES ('${data['service_name']}', '${data['price']}')`;
     db.pool.query(query1, function(error, rows, fields){
 
         // Check to see if there was an error
@@ -163,7 +193,34 @@ app.post('/add-service-form', function(req, res){
             res.redirect('/services');
         }
     })
-})
+});
+
+// Create new service
+app.post('/add-purchase-form', function(req, res){
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO Purchased_Services (service_id, res_id, quantity) VALUES ('${data['service_id']}', '${data['res_id']}', '${data['quantity']}')`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+
+        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+        // presents it on the screen
+        else
+        {
+            res.redirect('/purchased_services');
+        }
+    })
+});
+
 
 // Update Cat
 app.put('/put-cat-ajax', (req,res,next) => {
