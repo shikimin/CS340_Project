@@ -415,6 +415,26 @@ app.delete('/delete-service-ajax/', function(req,res,next){
         })
     });
 
+// Delete Service
+app.delete('/delete-purchase-ajax/', function(req,res,next){
+    let data = req.body;
+    let purchaseID = parseInt(data.id);
+    let deletePurchase = `DELETE FROM Purchased_Services WHERE purchase_id = ?`;
+  
+        db.pool.query(deletePurchase, [purchaseID], function(error, rows, fields){
+            if (error) {
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            else
+            {
+            res.sendStatus(204);
+            }
+        })
+    });
+
 // Get Reservations
 app.get('/reservations', function(req, res) {
     let query = `SELECT Reservations.res_id AS "res_id", 

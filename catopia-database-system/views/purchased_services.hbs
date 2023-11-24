@@ -41,7 +41,7 @@
                         <td>{{this.reservation}}</td>
                         <td>{{this.quantity}}</td>
                         <td><a href="javascript:void(0);" onclick="moveText([{{this.purchase_id}}, '{{this.service_name}}', '{{this.reservation}}', {{this.quantity}}], ['purchase_id_update', 'service_update', 'reservation_update', 'quantity_update'])">Edit</a></td>
-                        <td><a href="javascript:void(0);" onclick="moveText([{{this.cat_id}}, '{{this.cat_name}}'], ['cat_id_delete', 'cat_name_delete'])">Delete</a></td>
+                        <td><a href="javascript:void(0);" onclick="moveText([{{this.purchase_id}}, '{{this.service_name}}', '{{this.reservation}}', {{this.quantity}}], ['purchase_id_delete', 'service_delete', 'reservation_delete', 'quantity_delete'])">Delete</a></td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -112,20 +112,34 @@
 
         {{!-- Deleting Rows --}}
         <div class="deleteform" style="display:none">
-            <form id="delete-cat-form">
+            <form id="delete-purchase-form">
                 <fieldset>
-                    <legend><strong>Delete Existing Cat</strong></legend>
-                    <p>Click Confirm to delete the following cat:</p>
-                    <label for="cat_id_delete">Cat ID: </label>
-                    <input type="text" id="cat_id_delete" name="cat_id_delete" value="1">
-                    <label for="cat_name">Cat Name: </label>
-                    <input type="text" id="cat_name_delete" name="cat_name_delete" value="Reginald">
-                    <input type="hidden" name="cat_id" value="1">
+                    <legend><strong>Delete Existing Purchase</strong></legend>
+                    <label for="purchase_id_delete">Purchase ID: </label>
+                    <input type="text" id="purchase_id_delete" name="purchase_id_delete" value="1">
+
+                    <label for="service_delete">Service: </label>
+                    <select name="service_delete" id="service_delete">
+                        <option value="" selected></option>
+                        {{#each services}}
+                        <option value="{{this.service_id}}">{{this.services_dropdown}}</option>
+                        {{/each}}
+                        </select>
+                    
+                    <select name="reservation_delete" id="reservation_delete">
+                        <option value="" selected></option>
+                        {{#each reservations}}
+                        <option value="{{this.res_id}}">{{this.reservations_dropdown}}</option>
+                        {{/each}}
+                    </select>
+
+                    <label for="quantity_delete">Quantity: </label>
+                    <input type="number" id="quantity_delete" name="quantity_delete">
                 </fieldset>
-                <input type="button" value="Confirm" onclick="deleteCat(document.getElementById('cat_id_delete').value)">
+                <input type="button" value="Confirm" onclick="deletePurchase(document.getElementById('purchase_id_delete').value)">
                 <input type="button" value="Reset">
             </form>
-            <script src="../js/delete_cat.js"></script>
+            <script src="../js/delete_purchase.js"></script>
         </div>
 
 
