@@ -63,7 +63,7 @@ function updateRow(data, catID){
             
             let td = updateRowIndex.getElementsByTagName("td")[2];
             td.innerHTML = parsedData[0].cat_name; 
-            window.location.reload()
+            window.location.reload();
             break;
        }
     }

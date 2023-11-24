@@ -98,7 +98,7 @@ app.get('/purchased_services', function(req, res)
         INNER JOIN Cats ON Reservations.cat_id = Cats.cat_id
         INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;`;
 
-        let query2 = `SELECT service_id, CONCAT(service_id, " : ", service_name) as 'services_dropdown' FROM Services ORDER BY service_id ASC;`
+        let query2 = `SELECT service_id, service_name as 'services_dropdown' FROM Services ORDER BY service_id ASC;`
         let query3 = `SELECT res_id, CONCAT(Customers.first_name, " ", Customers.last_name, " | ", Cats.cat_name, " | ", Reservations.check_in_date) AS 'reservations_dropdown' FROM Reservations
         INNER JOIN Cats ON Reservations.cat_id = Cats.cat_id
         INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;`
@@ -324,6 +324,44 @@ app.put('/put-customer-ajax', (req,res,next) => {
             {
                  // Run the second query
                  db.pool.query(selectService, [serviceID], function(error, rows, fields) {
+
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(400);
+                    } else {
+                        res.send(rows);
+                    }
+                })
+            }
+  })});
+
+// Update Cat
+app.put('/put-purchase-ajax', (req,res,next) => {
+    let data = req.body;
+  
+    let purchaseID = parseInt(data.purchaseID);
+    let serviceID = parseInt(data.serviceID);
+    let resID = parseInt(data.resID);
+    let quantity = parseInt(data.quantity);
+    
+    let queryUpdatePurchase = `UPDATE Purchased_Services SET service_id = "${serviceID}" , res_id = "${resID}", quantity = "${quantity}" WHERE purchase_id = "${purchaseID}"`
+    let selectPurchase = `SELECT * FROM Purchased_Services WHERE purchase_id = ?`
+  
+          // Run the 1st query
+          db.pool.query(queryUpdatePurchase, [purchaseID, serviceID, resID, quantity], function(error, rows, fields){
+            if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error);
+            res.sendStatus(400);
+            }
+
+            // If there was no error, we run our second query and return that data so we can use it to update the people's
+            // table on the front-end
+            else
+            {
+                 // Run the second query
+                 db.pool.query(selectPurchase, [purchaseID], function(error, rows, fields) {
 
                     if (error) {
                         console.log(error);

@@ -15,13 +15,13 @@
     </head>
 
     <body>
-        <h1P>urchased Services</h1>
+        <h1>Purchased Services</h1>
         <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>        
         <p>&nbsp;</p>
         {{!-- Display table data --}}
         <div class="table">
             <table id="purchase-table" border="1" cellpadding="5">
-                <caption style="text-align:left"><strong>Browse existing cats:</strong></caption>
+                <caption style="text-align:left"><strong>Browse existing purchases:</strong></caption>
                 <thead>
                     <tr>
                         <th>Purchase ID</th>
@@ -40,7 +40,7 @@
                         <td>{{this.service_name}}</td>
                         <td>{{this.reservation}}</td>
                         <td>{{this.quantity}}</td>
-                        <td><a href="javascript:void(0);" onclick="moveText([{{this.purchase_id}}, '{{this.service_name}}', '{{this.reservation}}', {{this.quantity}}], ['cat_id_update', 'customer_id_update', 'cat_name_update'])">Edit</a></td>
+                        <td><a href="javascript:void(0);" onclick="moveText([{{this.purchase_id}}, '{{this.service_name}}', '{{this.reservation}}', {{this.quantity}}], ['purchase_id_update', 'service_update', 'reservation_update', 'quantity_update'])">Edit</a></td>
                         <td><a href="javascript:void(0);" onclick="moveText([{{this.cat_id}}, '{{this.cat_name}}'], ['cat_id_delete', 'cat_name_delete'])">Delete</a></td>
                     </tr>
                     {{/each}}
@@ -67,7 +67,7 @@
                     <select name="res_id" id="res_id">
                         <option value="" selected></option>
                         {{#each reservations}}
-                        <option value="{{this.res_id}}">{{this.res_id}}. {{this.reservations_dropdown}}</option>
+                        <option value="{{this.res_id}}">{{this.reservations_dropdown}}</option>
                         {{/each}}
                     </select>
                     <label for="quantity">Quantity: </label>
@@ -97,7 +97,7 @@
                     <select name="reservation_update" id="reservation_update">
                         <option value="" selected></option>
                         {{#each reservations}}
-                        <option value="{{this.res_id}}">{{this.res_id}}. {{this.reservations_dropdown}}</option>
+                        <option value="{{this.res_id}}">{{this.reservations_dropdown}}</option>
                         {{/each}}
                     </select>
 
@@ -107,7 +107,7 @@
                 <input type="submit" value="Submit">
                 <input type="button" value="Reset">
             </form>
-            <script src="../js/update_cat.js"></script>
+            <script src="../js/update_purchase.js"></script>
         </div>
 
         {{!-- Deleting Rows --}}
