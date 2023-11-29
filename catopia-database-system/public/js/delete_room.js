@@ -11,8 +11,7 @@ function deleteRoom(roomID) {
     // Tell our AJAX request how to resolve
     xhttp.onreadystatechange = () => {
         if (xhttp.readyState == 4 && xhttp.status == 204) {
-
-            // Add the new data to the table
+            // Delete the data from the table
             deleteRow(roomID);
 
         }

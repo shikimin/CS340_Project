@@ -470,7 +470,6 @@ app.get('/reservations', function(req, res) {
 // Create new reservation
 app.post('/add-res-form', function(req, res){
     let data = req.body;
-    console.log(data);
     // Check if room name and rate are empty
     if (data['customer_id'] == "" || data['cat_id'] == "" || data['room_id'] == "" || data['check_in'] == "" || data['check_out'] == "") {
         // error message?
@@ -488,6 +487,23 @@ app.post('/add-res-form', function(req, res){
     });
 });
 
+app.delete('/delete-res-ajax/', function(req,res,next){
+    let data = req.body;
+    console.log(data);
+    let resID = parseInt(data.id);
+    let deleteRes = `DELETE FROM Reservations WHERE res_id = ?`;
+  
+        db.pool.query(deleteRes, [resID], function(error, rows, fields){
+            if (error) {
+            console.log(error);
+            res.sendStatus(400);
+            }
+            else
+            {
+            res.sendStatus(204);
+            }
+        })
+});
 // Get Room_Types
 app.get('/room_types', function(req, res) {  
     let query1 = "SELECT * FROM Room_Types ORDER BY room_id ASC;";

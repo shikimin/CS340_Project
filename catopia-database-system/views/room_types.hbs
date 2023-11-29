@@ -8,7 +8,7 @@
 <html>
 <head>
     <title>Room Types</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    {{!-- <link href="style.css" rel="stylesheet" type="text/css" /> --}}
 </head>
 <body>
     <h1>Room Types</h1>
@@ -83,7 +83,7 @@
                 <label for="room_name_delete">Room Name: </label>
                 <input type="text" id="room_name_delete" name="room_name_delete" value="Single">
             </fieldset>
-            <input type="submit" value="Confirm" onclick="deleteRoom(document.getElementById('room_id_delete').value)">
+            <input type="button" value="Confirm" onclick="deleteRoom(document.getElementById('room_id_delete').value)">
             <input type="button" value="Reset">
           </form>
           <script src="./js/delete_room.js"></script>

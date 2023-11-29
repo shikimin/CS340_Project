@@ -1,4 +1,3 @@
-const { table } = require("console");
 
 /**
  * load cats with same customer ID when user choose a customer
