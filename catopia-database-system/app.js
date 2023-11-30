@@ -504,6 +504,38 @@ app.delete('/delete-res-ajax/', function(req,res,next){
             }
         })
 });
+
+app.put('/put-res-ajax', (req,res,next) => {
+    let data = req.body;
+
+    let resID = parseInt(data.resID);
+    let customerID = parseInt(data.customerID);
+    let catID = parseInt(data.catID);
+    let roomID = parseInt(data.roomID);
+    let checkIn = data.checkIn;
+    let checkOut = data.checkOut;
+
+    let queryUpdateRes = `UPDATE Reservations SET customer_id = "${customerID}", cat_id = "${catID}", room_id = "${roomID}", check_in_date = "${checkIn}", check_out_date = "${checkOut}" WHERE res_id = ${resID};`;
+    let selectRes = `SELECT * FROM Reservations WHERE res_id = ?`
+    
+    db.pool.query(queryUpdateRes, [resID, customerID, catID, roomID, checkIn, checkOut], function(error, rows, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else
+        {
+            db.pool.query(selectRes, [resID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 // Get Room_Types
 app.get('/room_types', function(req, res) {  
     let query1 = "SELECT * FROM Room_Types ORDER BY room_id ASC;";
