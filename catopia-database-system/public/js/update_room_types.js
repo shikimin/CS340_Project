@@ -14,7 +14,7 @@ updateRoomForm.addEventListener("submit", (e) => {
     let inputRate = document.getElementById("rate_update");
 
     // Get the values from the form fields
-    let IDvalue = inputID.value;
+    let IDvalue = inputID.innerHTML;
     let roomNameValue = inputRoomName.value;
     let rateValue = inputRate.value;
 

@@ -46,26 +46,29 @@
         <form class="add-room-form" method="POST" action="/add-room-form">
             <fieldset>
                 <legend><strong>Add New Room Type</strong></legend>
-                <label for="add-room-name">Room Name: </label>
-                <input type="text" id="add-room-name" name="add-room-name">
-                <label for="add-rate">Rate: </label>
-                <input type="text" id="add-rate" name="add-rate">
+                <label for="add-room-name"><b>Room Name: </b></label>
+                <input type="text" id="add-room-name" name="add-room-name" required>
+
+                <label for="add-rate"><b>Rate: </b></label>
+                <input type="text" id="add-rate" name="add-rate" required>
             </fieldset>
             <input type="submit" value="Submit">
             <input type="button" value="Reset">
           </form>
     </div>
 
-    <div class="update-form">
+    <div class="update-form" style="display:none">
         <form id="update-room-form">
             <fieldset>
                 <legend><strong>Update Existing Room Type</strong></legend>
-                <label for="room_id_update">Room ID: </label>
-                <input type="text" id="room_id_update" name="room_id" value="1">
-                <label for="room_name_update">Room Name: </label>
-                <input type="text" id="room_name_update" name="room_name_update" value="Single">
-                <label for="rate_update">Rate: </label>
-                <input type="text" id="rate_update" name="rate_update" value="40.32">
+                    <p style="display:inline"><b>Room ID: </b></p>
+                    <p id="room_id_update" style="display:inline"></p>
+
+                <label for="room_name_update"><b>Room Name: </b></label>
+                <input type="text" id="room_name_update" name="room_name_update" required>
+
+                <label for="rate_update"><b>Rate: </b></label>
+                <input type="text" id="rate_update" name="rate_update" value="40.32" required>
             </fieldset>
             <input type="submit" value="Submit">
             <input type="button" value="Reset">
@@ -73,17 +76,19 @@
           <script src="./js/update_room_types.js"></script>
     </div>
 
-    <div class="delete-form">
+    <div class="delete-form" style="display:none">
         <form>
             <fieldset>
                 <legend><strong>Delete Existing Room Type</strong></legend>
                 <p>Click Confirm to delete the following room type:</p>
-                <label for="room_id_delete">Room ID: </label>
-                <input type="text" id="room_id_delete" name="room_id" value="1">
-                <label for="room_name_delete">Room Name: </label>
-                <input type="text" id="room_name_delete" name="room_name_delete" value="Single">
+                    <p style="display:inline"><b>Room ID: </b></p>
+                    <p id="room_id_delete" style="display:inline"></p>
+
+                    <p style="display:inline"><b>Room Name: </b></p>
+                    <p id="room_name_delete" style="display:inline"></p>
+
             </fieldset>
-            <input type="button" value="Confirm" onclick="deleteRoom(document.getElementById('room_id_delete').value)">
+            <input type="button" value="Confirm" onclick="deleteRoom(document.getElementById('room_id_delete').innerHTML)">
             <input type="button" value="Reset">
           </form>
           <script src="./js/delete_room.js"></script>
