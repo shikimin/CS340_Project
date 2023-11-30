@@ -54,18 +54,17 @@
             <form id="add-cat-form" method="POST" action="/add-cat-form">
                 <fieldset>
                     <legend><strong>Add New Cat</strong></legend>
-                    <label for="customer_id">Customer: </label>
+                    <label for="customer_id"><b>Customer: </b> </label>
                     <select name="customer_id" id="customer_id" required>
                         <option value="" selected></option>
                         {{#each customers}}
                         <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                         {{/each}}
                         </select>
-                    <label for="cat_name">Cat Name: </label>
+                    <label for="cat_name"><b>Cat Name: </b> </label>
                     <input type="text" id="cat_name" name="cat_name" required>
                 </fieldset>
                 <input type="submit" value="Submit">
-                <input type="button" value="Reset">
             </form>
         </div>
 
@@ -74,10 +73,10 @@
             <form id="update-cat-form">
                 <fieldset>
                     <legend><strong>Update Existing Cat</strong></legend>
-                    <p style="display:inline">Cat ID: </p>
+                    <p style="display:inline"><b>Cat ID: </b> </p>
                     <p id="cat_id_update" style="display:inline"></p>
 
-                    <label for="customer_id_update">Customer: </label>
+                    <label for="customer_id_update"><b>Customer: </b> </label>
                     <select name="customer_id_update" id="customer_id_update" required>
                         <option value="" selected></option>
                         {{#each customers}}
@@ -85,11 +84,10 @@
                         {{/each}}
                         </select>
 
-                    <label for="cat_name_update">Cat Name: </label>
+                    <label for="cat_name_update"><b>Cat Name: </b> </label>
                     <input type="text" id="cat_name_update" name="cat_name_update" required>
                 </fieldset>
                 <input type="submit" value="Submit">
-                <input type="button" value="Reset">
             </form>
             <script src="../js/update_cat.js"></script>
         </div>
@@ -100,19 +98,15 @@
                 <fieldset>
                     <legend><strong>Delete Existing Cat</strong></legend>
                     <p>Click Confirm to delete the following cat:</p>
-                    <p style="display:inline">Cat ID: </p>
+                    <p style="display:inline"><b>Cat ID: </b> </p>
                     <p id="cat_id_delete" style="display:inline"></p>
 
-                    <label for="cat_name">Cat Name: </label>
-                    <input type="text" id="cat_name_delete" name="cat_name_delete" value="Reginald">
-                    <input type="hidden" name="cat_id" value="1">
+                    <p style="display:inline"><b>Cat Name: </b> </p>
+                    <p id="cat_name_delete" style="display:inline"></p>
                 </fieldset>
                 <input type="button" value="Confirm" onclick="deleteCat(document.getElementById('cat_id_delete').innerHTML)">
-                <input type="button" value="Reset">
             </form>
             <script src="../js/delete_cat.js"></script>
         </div>
-
-
     </body>
 </html>

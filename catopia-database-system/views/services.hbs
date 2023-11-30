@@ -51,10 +51,10 @@
         <form id="add-service-form" method="POST" action="/add-service-form">
             <fieldset>
                 <legend><strong>Add New Service</strong></legend>
-                <label for="service_name">Service Name: </label>
+                <label for="service_name"><b>Service Name:  </b></label>
                 <input type="text" id="service_name" name="service_name" required>
 
-                <label for="price">Price: </label>
+                <label for="price"><b>Price: </b></label>
                 <input type="text" id="price" name="price" required>
             </fieldset>
             <input type="submit" value="Submit">
@@ -67,13 +67,13 @@
         <form id="update-service-form">
             <fieldset>
                 <legend><strong>Update Existing Service</strong></legend>
-                <p style="display:inline">Service ID: </p>
+                <p style="display:inline"><b>Service ID: </b> </p>
                 <p id="service_id_update" style="display:inline"></p>
 
-                <label for="service_name">Service Name: </label>
+                <label for="service_name"><b>Service Name:  </b></label>
                 <input type="text" id="service_name_update" name="service_name_update" required>
 
-                <label for="price">Price: </label>
+                <label for="price"><b>Price: </b></label>
                 <input type="text" id="price_update" name="price_update" required>
             </fieldset>
             <input type="submit" value="Submit">
@@ -88,11 +88,11 @@
             <fieldset>
                 <legend><strong>Delete Existing Service</strong></legend>
                 <p>Click Confirm to delete the following service:</p>
-                <p style="display:inline">Service ID: </p>
+                <p style="display:inline"><b>Service ID: </b> </p>
                 <p id="service_id_delete" style="display:inline"></p>
 
-                <label for="service_name_delete">Service Name: </label>
-                <input type="text" id="service_name_delete" name="service_name_delete" value="">
+                <p style="display:inline"><b>Service Name: </b></p>
+                <p id="service_name_delete" style="display:inline"></p>
             </fieldset>
             <input type="button" value="Confirm" onclick="deleteService(document.getElementById('service_id_delete').innerHTML)">
             <input type="button" value="Reset">
