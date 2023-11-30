@@ -15,7 +15,7 @@ updatePurchaseForm.addEventListener("submit", (e) => {
 
 
     // Get the values from the form fields
-    let idValue = inputID.value;
+    let idValue = inputID.innerHTML;
     let serviceValue = inputService.value;
     let reservationValue = inputReservation.value;
     let quantityValue = inputQuantity.value;

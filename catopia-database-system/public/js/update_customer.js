@@ -16,7 +16,7 @@ updateCustomerForm.addEventListener("submit", (e) => {
 
 
     // Get the values from the form fields
-    let idValue = inputID.value;
+    let idValue = inputID.innerHTML;
     let firstNameValue = inputFirstName.value;
     let lastNameValue = inputLastName.value;
     let phoneValue = inputPhone.value;

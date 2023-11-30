@@ -51,50 +51,53 @@
 
         <p>&nbsp;</p>
         
-        {{!-- Adding rows --}}
+        {{!-- Add Form --}}
         <div class="addform">
             <form id="add-purchase-form" method="POST" action="/add-purchase-form">
                 <fieldset>
                     <legend><strong>Add New Purchase</strong></legend>
                     <label for="service_id">Service: </label>
-                    <select name="service_id" id="service_id">
+                    <select name="service_id" id="service_id" required>
                         <option value="" selected></option>
                         {{#each services}}
                         <option value="{{this.service_id}}">{{this.services_dropdown}}</option>
                         {{/each}}
                         </select>
+
                     <label for="res_id">Reservation: </label>
-                    <select name="res_id" id="res_id">
+                    <select name="res_id" id="res_id" required>
                         <option value="" selected></option>
                         {{#each reservations}}
                         <option value="{{this.res_id}}">{{this.reservations_dropdown}}</option>
                         {{/each}}
                     </select>
+
                     <label for="quantity">Quantity: </label>
-                    <input type="number" id="quantity" name="quantity">
+                    <input type="number" id="quantity" name="quantity" required>
                 </fieldset>
                 <input type="submit" value="Submit">
                 <input type="button" value="Reset">
             </form>
         </div>
 
-        {{!-- Updating Rows --}}
+        {{!-- Update Form --}}
         <div class="updateform" style="display:none">
             <form id="update-purchase-form">
                 <fieldset>
                     <legend><strong>Update Existing Purchase</strong></legend>
-                    <label for="purchase_id_update">Purchase ID: </label>
-                    <input type="text" id="purchase_id_update" name="purchase_id_update" value="1">
+                    <p style="display:inline">Purchase ID: </p>
+                    <p id="purchase_id_update" style="display:inline"></p>
 
                     <label for="service_update">Service: </label>
-                    <select name="service_update" id="service_update">
+                    <select name="service_update" id="service_update" required>
                         <option value="" selected></option>
                         {{#each services}}
                         <option value="{{this.service_id}}">{{this.services_dropdown}}</option>
                         {{/each}}
                         </select>
-                    
-                    <select name="reservation_update" id="reservation_update">
+
+                    <label for="reservation_update">Reservation: </label>
+                    <select name="reservation_update" id="reservation_update" required>
                         <option value="" selected></option>
                         {{#each reservations}}
                         <option value="{{this.res_id}}">{{this.reservations_dropdown}}</option>
@@ -102,7 +105,7 @@
                     </select>
 
                     <label for="quantity_update">Quantity: </label>
-                    <input type="number" id="quantity_update" name="quantity_update">
+                    <input type="number" id="quantity_update" name="quantity_update" required>
                 </fieldset>
                 <input type="submit" value="Submit">
                 <input type="button" value="Reset">
@@ -110,13 +113,13 @@
             <script src="../js/update_purchase.js"></script>
         </div>
 
-        {{!-- Deleting Rows --}}
+        {{!-- Delete Form --}}
         <div class="deleteform" style="display:none">
             <form id="delete-purchase-form">
                 <fieldset>
                     <legend><strong>Delete Existing Purchase</strong></legend>
-                    <label for="purchase_id_delete">Purchase ID: </label>
-                    <input type="text" id="purchase_id_delete" name="purchase_id_delete" value="1">
+                    <p style="display:inline">Purchase ID: </p>
+                    <p id="purchase_id_delete" style="display:inline"></p>
 
                     <label for="service_delete">Service: </label>
                     <select name="service_delete" id="service_delete">
@@ -126,6 +129,7 @@
                         {{/each}}
                         </select>
                     
+                    <label for="reservation_delete">Reservation: </label>
                     <select name="reservation_delete" id="reservation_delete">
                         <option value="" selected></option>
                         {{#each reservations}}
@@ -136,7 +140,7 @@
                     <label for="quantity_delete">Quantity: </label>
                     <input type="number" id="quantity_delete" name="quantity_delete">
                 </fieldset>
-                <input type="button" value="Confirm" onclick="deletePurchase(document.getElementById('purchase_id_delete').value)">
+                <input type="button" value="Confirm" onclick="deletePurchase(document.getElementById('purchase_id_delete').innerHTML)">
                 <input type="button" value="Reset">
             </form>
             <script src="../js/delete_purchase.js"></script>

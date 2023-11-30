@@ -44,59 +44,47 @@
 
     <p>&nbsp;</p>
 
+    {{!-- Add Form --}}
     <div class="addform">
         <form id="add-customer-form" method="POST" action="/add-customer-form">
             <fieldset>
                 <legend><strong>Add New Customer</strong></legend>
                 <label for="first_name">First Name: </label>
-                <input type="text" id="first_name" name="first_name">
+                <input type="text" id="first_name" name="first_name" required>
+                
                 <label for="last_name_add">Last Name: </label>
-                <input type="text" id="last_name" name="last_name">
+                <input type="text" id="last_name" name="last_name" required>
+
                 <label for="phone">Phone Number: </label>
-                <input type="text" id="phone" name="phone"><br>
+                <input type="text" id="phone" name="phone" required><br>
             </fieldset>
             <input type="submit" value="Submit">
             <input type="button" value="Reset">
           </form>
     </div>
 
+    {{!-- Update Form --}}
     <div class="updateform" style="display:none">
         <form id="update-customer-form">
             <fieldset>
                 <legend><strong>Update Existing Customer</strong></legend>
-                <label for="customer_id_update">Customer ID: </label>
-                <input type="text" id="customer_id_update" name="customer_id_update" value="1">
+                <p style="display:inline">Customer ID: </p>
+                <p id="customer_id_update" style="display:inline"></p>
+
                 <label for="first_name_update">First Name: </label>
-                <input type="text" id="first_name_update" name="first_name_update" value="Cole">
+                <input type="text" id="first_name_update" name="first_name_update" required>
+
                 <label for="last_name_update">Last Name: </label>
-                <input type="text" id="last_name_update" name="last_name_update" value="Spencer">
+                <input type="text" id="last_name_update" name="last_name_update" required>
+
                 <label for="phone_update">Phone Number:</label>
-                <input type="text" id="phone_update" name="phone_update" value="8707651234"><br>
+                <input type="text" id="phone_update" name="phone_update" required><br>
             </fieldset>
             <input type="submit" value="Submit">
             <input type="button" value="Reset">
           </form>
           <script src="../js/update_customer.js"></script>
     </div>
-
-    <!-- <div class="deleteform">
-        <form>
-            <fieldset>
-                <legend><strong>Delete Existing Customer</strong></legend>
-                <p>Click Confirm to delete the following customer:</p>
-                <label for="customer_id">Customer ID: 1</label>
-                <label for="fname">First Name: </label>
-                <input type="text" id="first_name" name="first_name" value="Cole">
-                <label for="lname">Last Name: </label>
-                <input type="text" id="last_name" name="last_name" value="Spencer">
-                <input type="hidden" name="customer_id" value="1">
-            </fieldset>
-            <input type="submit" value="Confirm">
-            <input type="button" value="Reset">
-          </form>
-    </div> -->
-
-
 
 </body>
 </html>

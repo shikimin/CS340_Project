@@ -13,7 +13,7 @@ updateServiceForm.addEventListener("submit", (e) => {
     let inputPrice = document.getElementById("price_update");
 
     // Get the values from the form fields
-    let idValue = inputID.value;
+    let idValue = inputID.innerHTML;
     let serviceNameValue = inputServiceName.value;
     let priceValue = inputPrice.value;
     

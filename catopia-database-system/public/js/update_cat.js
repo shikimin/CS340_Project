@@ -14,7 +14,7 @@ updateCatForm.addEventListener("submit", (e) => {
     let inputNewCatName = document.getElementById("cat_name_update");
 
     // Get the values from the form fields
-    let idValue = inputID.value;
+    let idValue = inputID.innerHTML;
     let customerIDValue = inputCustomerID.value;
     let newCatNameValue = inputNewCatName.value;
     
