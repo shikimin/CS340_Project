@@ -58,7 +58,6 @@ updateRoomForm.addEventListener("submit", (e) => {
 
 function updateRow(data, resID){
     let parsedData = JSON.parse(data);
-    console.log(parsedData);
     let table = document.getElementById("res-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {

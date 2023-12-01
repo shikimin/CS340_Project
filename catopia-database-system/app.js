@@ -489,7 +489,6 @@ app.post('/add-res-form', function(req, res){
 
 app.delete('/delete-res-ajax/', function(req,res,next){
     let data = req.body;
-    console.log(data);
     let resID = parseInt(data.id);
     let deleteRes = `DELETE FROM Reservations WHERE res_id = ?`;
   

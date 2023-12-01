@@ -132,21 +132,26 @@
             <fieldset>
                 <legend><strong>Delete Existing Reservation</strong></legend>
                 <p>Click Confirm to delete the following reservation:</p>
-                <label for="res_id_delete">Reservation:</label>
-                <input type="text" name="res_id_delete" id="res_id_delete" value="1"><br>
-                <label for="customer_name_delete">Customer: </label>
-                <input name="customer_name_delete" id="customer_name_delete" value="1"><br>
-                <label for="cat_name_delete">Cat: </label>
-                <input name="cat_name_delete" id="cat_name_delete" value="1"><br>
-                <label for="room_id_delete">Room Type: </label>
-                <input name="room_id_delete" id="room_id_delete" value="1"><br>
-                <label for="check_in_delete">Check-In Date:</label>
-                <input name="check_in_delete" id="check_in_delete" value="2023-06-23"><br>
-                <label for="check_out_delete">Check-Out Date:</label>
-                <input name="check_out_delete" id="check_out_delete" value="2023-06-27">
+                <p style="display:inline"><b>Reservation: </b></p>
+                <p id="res_id_delete" style="display:inline">1</p><br>
+
+                <p style="display:inline"><b>Customer: </b></p>
+                <p id="customer_name_delete" style="display:inline">1</p><br>
+
+                <p style="display:inline"><b>Cat: </b></p>
+                <p id="cat_name_delete" style="display:inline">1</p><br>
+
+                <p style="display:inline"><b>Room Type: </b></p>
+                <p id="room_id_delete" style="display:inline">1</p><br>
+
+                <p style="display:inline"><b>Check-In Date: </b></p>
+                <p id="check_in_delete" style="display:inline">2023-06-23</p><br>
+
+                <p style="display:inline"><b>Check-Out Date: </b></p>
+                <p id="check_out_delete" style="display:inline"></p>
             </fieldset>
             <div class="buttons" align="center">            
-                <input type="button" value="Confirm" onclick="deleteRes(document.getElementById('res_id_delete').value)">
+                <input type="button" value="Confirm" onclick="deleteRes(document.getElementById('res_id_delete').innerHTML)">
                 <input type="button" value="Reset">
             </div>
           </form>
