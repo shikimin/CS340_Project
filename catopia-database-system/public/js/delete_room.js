@@ -28,6 +28,7 @@ function deleteRoom(roomID) {
       for (let i = 0, row; row = table.rows[i]; i++) {
          if (table.rows[i].getAttribute("data-value") == roomID) {
               table.deleteRow(i);
+              window.location.reload();
               break;
          }
       }
