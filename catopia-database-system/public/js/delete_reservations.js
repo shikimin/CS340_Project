@@ -24,6 +24,7 @@ function deleteRes(resID) {
          //rows would be accessed using the "row" variable assigned in the for loop
          if (table.rows[i].getAttribute("data-value") == resID) {
               table.deleteRow(i);
+              window.location.reload();
               break;
          }
       }
