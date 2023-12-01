@@ -53,20 +53,22 @@
             <fieldset>
                 <legend><strong>Add New Reservation</strong></legend>
                 <label for="customer_id_add">Customer: </label>
-                    <select name="customer_id" id="customer_id_add" onchange="loadCats(this.value,'cat-dropdown-add')">
+                    <select name="customer_id" id="customer_id_add" onchange="loadCats(this.value,'cat-dropdown-add')" required>
                     <option value="" selected></option>
                     {{#each customers}}
                     <option value="{{this.customer_id}}">{{this.customer_id}}. {{this.customer_dropdown}}</option>
                     {{/each}}
                     </select><br>
+
                 <!-- Options for selectable cats to be determined by customer chosen -->
                 <label for="cat-dropdown-add">Cat: </label>
                 <select name="cat_id" id="cat-dropdown-add">
-                    <option value="" selected></option>
+                    <option value="0" selected></option>
                     {{#each cats}}
                     <option value="{{this.cat_id}}">{{this.cat_dropdown}}</option>
                     {{/each}}
                 </select><br>
+
                 <label for="room_id_add">Room Type: </label>
                 <select name="room_id" id="room_id_add">
                     <option value="0" selected></option>
@@ -74,10 +76,11 @@
                     <option value={{this.room_id}}>{{this.room_dropdown}}</option>
                     {{/each}}
                 </select><br>
+
                 <label for="check_in_add">Check-In Date: </label>
-                <input type="date" id="check_in_add" name="check_in"><br>
+                <input type="date" id="check_in_add" name="check_in" required><br>
                 <label for="check_out_add">Check-Out Date: </label>
-                <input type="date" id="check_out_add" name="check_out"><br>
+                <input type="date" id="check_out_add" name="check_out" required><br>
             </fieldset>
             <div class="buttons" align="center">            
                 <input type="submit" value="Submit">
@@ -91,22 +94,26 @@
         <form id="update-res-form">
             <fieldset>
                 <legend><strong>Update Existing Reservation</strong></legend>
-                <label for="res_id_update">Reservation ID: </label>
-                <input type="text" id="res_id_update" name="res_id" value="1"><br>
+                <p style="display:inline"><b>Reservation ID: </b></p>
+                <p id="res_id_update" style="display:inline">1</p><br>
+                
                 <label for="customer_id_update">Customer: </label>
-                <select name="customer_id" id="customer_id_update" onchange="loadCats(this.value, 'cat-dropdown-update')">
+                <select name="customer_id" id="customer_id_update" onchange="loadCats(this.value, 'cat-dropdown-update')" required>
                 <option value="" selected></option>
+
                 {{#each customers}}
                 <option value="{{this.customer_id}}">{{this.customer_id}}. {{this.customer_dropdown}}</option>
                 {{/each}}
                 </select><br>
+
                 <label for="cat-dropdown-update">Cat: </label>
                 <select name="cat_id" id="cat-dropdown-update">
-                    <option value="" selected></option>
+                    <option value="0" selected></option>
                     {{#each cats}}
                     <option value="{{this.cat_id}}">{{this.cat_dropdown}}</option>
                     {{/each}}
                 </select><br>
+
                 <label for="room_id_update">Room Type: </label>
                 <select name="room_id" id="room_id_update">
                     <option value="0" selected></option>
@@ -114,10 +121,12 @@
                     <option value={{this.room_id}}>{{this.room_dropdown}}</option>
                     {{/each}}
                 </select><br>
+
                 <label for="check_in_update">Check-In Date: </label>
-                <input id="check_in_update" name="check_in" value="2023-06-23"><br>
+                <input id="check_in_update" name="check_in" value="2023-06-23" required><br>
+
                 <label for="check_in_update">Check-Out Date: </label>
-                <input id="check_out_update" name="check_out" value="2023-06-27"><br>
+                <input id="check_out_update" name="check_out" value="2023-06-27" required><br>
             </fieldset>
             <div class="buttons" align="center">            
                 <input type="submit" value="Submit">
