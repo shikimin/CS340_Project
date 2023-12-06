@@ -8,12 +8,9 @@
 <html>
 <head>
     <title>Customers</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <h1>Customers</h1>
-    <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>
-    <p>&nbsp;</p>
     <div id="tablediv">
         <table id="customer-table" border="1" cellpadding="5">
             <caption style="text-align:left"><strong>Browse existing customers:</strong></caption>
@@ -27,7 +24,6 @@
                 </tr>
             </thead>
                 <tbody>
-                    <tr>
                     {{#each data}}
                     <tr data-value={{this.customer_id}}>
                         <td>{{this.customer_id}}</td>
@@ -36,13 +32,10 @@
                         <td>{{this.phone}}</td>
                         <td><a href="javascript:void(0);" onclick="moveText([{{this.customer_id}}, '{{this.first_name}}', '{{this.last_name}}', '{{this.phone}}'], ['customer_id_update', 'first_name_update', 'last_name_update', 'phone_update'])">Edit</a></td>
                     {{/each}}
-                    </tr>
             </tbody>
             <script src="../js/move_text.js"></script>
         </table>
     </div>
-
-    <p>&nbsp;</p>
 
     {{!-- Add Form --}}
     <div class="addform">
@@ -56,10 +49,9 @@
                 <input type="text" id="last_name" name="last_name" required>
 
                 <label for="phone"><b>Phone Number: </b> </label>
-                <input type="text" id="phone" name="phone" required><br>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="1234567890" required><br>
             </fieldset>
             <input type="submit" value="Submit">
-            <input type="button" value="Reset">
           </form>
     </div>
 
@@ -78,10 +70,9 @@
                 <input type="text" id="last_name_update" name="last_name_update" required>
 
                 <label for="phone_update"><b>Phone Number: </b></label>
-                <input type="text" id="phone_update" name="phone_update" required><br>
+                <input type="tel" id="phone_update" name="phone_update" pattern="[0-9]{10}" placeholder="1234567890" required><br>
             </fieldset>
             <input type="submit" value="Submit">
-            <input type="button" value="Reset">
           </form>
           <script src="../js/update_customer.js"></script>
     </div>

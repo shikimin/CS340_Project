@@ -8,12 +8,11 @@
 <html>
 <head>
     <title>Reservations</title>
-    {{!--<link href="style.css" rel="stylesheet" type="text/css" /> --}}
+
 </head>
 <body>
     <h1>Reservations</h1>
-    <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>
-    <p>&nbsp;</p>
+
     <div>
         <table id="res-table" border="1" cellpadding="4">
             <caption style="text-align:left"><strong>Browse existing reservations:</strong></caption>
@@ -45,8 +44,6 @@
             </tbody>
         </table>
     </div>
-
-    <p>&nbsp;</p>
 
     <div class="addform" style="float:left">
         <form class="add-res-form" method="POST" action="/add-res-form">
@@ -84,7 +81,6 @@
             </fieldset>
             <div class="buttons" align="center">            
                 <input type="submit" value="Submit">
-                <input type="button" value="Reset">
             </div>
           </form>
     </div>
@@ -130,7 +126,6 @@
             </fieldset>
             <div class="buttons" align="center">            
                 <input type="submit" value="Submit">
-                <input type="button" value="Reset">
             </div>
           </form>
         <script src="../js/update_reservations.js"></script>
@@ -161,7 +156,6 @@
             </fieldset>
             <div class="buttons" align="center">            
                 <input type="button" value="Confirm" onclick="deleteRes(document.getElementById('res_id_delete').innerHTML)">
-                <input type="button" value="Reset">
             </div>
           </form>
         <script src="../js/delete_reservations.js"></script>

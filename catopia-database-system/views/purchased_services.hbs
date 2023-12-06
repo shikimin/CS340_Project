@@ -11,13 +11,11 @@
 
     <head>
         <title>Purchased Services</title>
-        {{!-- <link href="style.css" rel="stylesheet" type="text/css" /> --}}
     </head>
 
     <body>
         <h1>Purchased Services</h1>
-        <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>        
-        <p>&nbsp;</p>
+
         {{!-- Display table data --}}
         <div class="table">
             <table id="purchase-table" border="1" cellpadding="5">
@@ -48,8 +46,6 @@
                 <script src="../js/move_text.js"></script>
             </table>
         </div>
-
-        <p>&nbsp;</p>
         
         {{!-- Add Form --}}
         <div class="addform">
@@ -76,7 +72,6 @@
                     <input type="number" id="quantity" name="quantity" required>
                 </fieldset>
                 <input type="submit" value="Submit">
-                <input type="button" value="Reset">
             </form>
         </div>
 
@@ -108,7 +103,6 @@
                     <input type="number" id="quantity_update" name="quantity_update" required>
                 </fieldset>
                 <input type="submit" value="Submit">
-                <input type="button" value="Reset">
             </form>
             <script src="../js/update_purchase.js"></script>
         </div>
@@ -131,7 +125,6 @@
                     <input type="number" id="quantity_delete" name="quantity_delete">
                 </fieldset>
                 <input type="button" value="Confirm" onclick="deletePurchase(document.getElementById('purchase_id_delete').innerHTML)">
-                <input type="button" value="Reset">
             </form>
             <script src="../js/delete_purchase.js"></script>
         </div>

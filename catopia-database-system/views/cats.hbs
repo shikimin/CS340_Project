@@ -11,13 +11,12 @@
 
     <head>
         <title>Cats</title>
-        {{!-- <link href="style.css" rel="stylesheet" type="text/css" /> --}}
+        <link href="../css/style.css" rel="stylesheet"/>
     </head>
 
     <body>
         <h1>Cats</h1>
-        <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>        
-        <p>&nbsp;</p>
+
         {{!-- Display table data --}}
         <div class="table">
             <table id="cat-table" border="1" cellpadding="5">
@@ -46,14 +45,13 @@
                 <script src="../js/move_text.js"></script>
             </table>
         </div>
-
-        <p>&nbsp;</p>
         
         {{!-- Add Form --}}
         <div class="addform">
             <form id="add-cat-form" method="POST" action="/add-cat-form">
                 <fieldset>
                     <legend><strong>Add New Cat</strong></legend>
+                    
                     <label for="customer_id"><b>Customer: </b> </label>
                     <select name="customer_id" id="customer_id" required>
                         <option value="" selected></option>
@@ -61,6 +59,7 @@
                         <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                         {{/each}}
                         </select>
+
                     <label for="cat_name"><b>Cat Name: </b> </label>
                     <input type="text" id="cat_name" name="cat_name" required>
                 </fieldset>

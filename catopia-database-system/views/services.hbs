@@ -10,12 +10,10 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <head>
     <title>Services</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <h1>Services</h1>
-    <a href="/">Home</a> || <a href="/customers">Customers</a> || <a href="/cats">Cats</a> || <a href="/reservations">Reservations</a> || <a href="/services">Services</a> || <a href="/purchased_services">Purchased Services</a> || <a href="/room_types">Room Types</a>
-    <p>&nbsp;</p>
+
     <div id="tablediv">
         <table id="service-table" border="1" cellpadding="5">
             <caption style="text-align:left"><strong>Browse existing services:</strong></caption>
@@ -29,7 +27,6 @@
                 </tr>
             </thead>
                 <tbody>
-                    <tr>
                     {{#each data}}
                     <tr data-value={{this.service_id}}>
                         <td>{{this.service_id}}</td>
@@ -38,13 +35,10 @@
                         <td><a href="javascript:void(0);" onclick="moveText([{{this.service_id}}, '{{this.service_name}}', {{this.service_price}}], ['service_id_update', 'service_name_update', 'price_update'])">Edit</a></td>
                         <td><a href="javascript:void(0);" onclick="moveText([{{this.service_id}}, '{{this.service_name}}'], ['service_id_delete', 'service_name_delete'])">Delete</a></td>
                     {{/each}}
-                    </tr>
             </tbody>
             <script src="../js/move_text.js"></script>
         </table>
     </div>
-
-    <p>&nbsp;</p>
 
     {{!-- Adding rows --}}
     <div class="addform">
@@ -55,10 +49,9 @@
                 <input type="text" id="service_name" name="service_name" required>
 
                 <label for="price"><b>Price: </b></label>
-                <input type="text" id="price" name="price" required>
+                <input type="text" id="price" name="price" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required>
             </fieldset>
             <input type="submit" value="Submit">
-            <input type="button" value="Reset">
           </form>
     </div>
     
@@ -74,10 +67,9 @@
                 <input type="text" id="service_name_update" name="service_name_update" required>
 
                 <label for="price"><b>Price: </b></label>
-                <input type="text" id="price_update" name="price_update" required>
+                <input type="text" id="price_update" name="price_update" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required>
             </fieldset>
             <input type="submit" value="Submit">
-            <input type="button" value="Reset">
           </form>
           <script src="../js/update_service.js"></script>
     </div>
@@ -95,7 +87,6 @@
                 <p id="service_name_delete" style="display:inline"></p>
             </fieldset>
             <input type="button" value="Confirm" onclick="deleteService(document.getElementById('service_id_delete').innerHTML)">
-            <input type="button" value="Reset">
         </form>
         <script src="../js/delete_service.js"></script>
     </div>
