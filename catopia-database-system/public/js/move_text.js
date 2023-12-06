@@ -12,7 +12,8 @@ function moveText(data, destinations) {
         if (document.getElementById(destinations[i]).tagName == "SELECT") {
             dropdownOptions = document.getElementById(destinations[i]).options;
             for (let j = 0; j < dropdownOptions.length; j++) {
-                if (dropdownOptions[j].value == data[i]) {
+                console.log(dropdownOptions[j]);
+                if (dropdownOptions[j].innerHTML == data[i]) {
                     dropdownOptions[j].selected = true;
                   break;
                 }
