@@ -73,7 +73,7 @@ function updateRow(data, customerID){
 
             let td3 = updateRowIndex.getElementsByTagName("td")[3];
             td3.innerHTML = parsedData[0].phone; 
-
+            window.location.reload();
             break;
        }
     }

@@ -62,9 +62,9 @@ function updateRow(data, roomID){
             let td = updateRowIndex.getElementsByTagName("td")[1];
             td.innerHTML = parsedData[0].room_name; 
 
-
             let td1 = updateRowIndex.getElementsByTagName("td")[2];
             td1.innerHTML = parsedData[0].rate;
+            window.location.reload();
        }
     }
 }

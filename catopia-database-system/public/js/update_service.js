@@ -63,6 +63,7 @@ function updateRow(data, serviceID){
 
             let td2 = updateRowIndex.getElementsByTagName("td")[2];
             td2.innerHTML = parsedData[0].service_price; 
+            window.location.reload();
             break;
        }
     }
