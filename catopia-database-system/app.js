@@ -450,10 +450,11 @@ app.get('/reservations', function(req, res) {
                 ORDER BY Reservations.res_id ASC;`;
 
     let query1 = `SELECT customer_id, CONCAT(Customers.first_name, ' ', Customers.last_name) AS 'customer_dropdown' FROM Customers;`;
-    let query2 = `SELECT cat_id, CONCAT(cat_id, '. ' , cat_name) as cat_dropdown FROM Cats;`;
-    let query3 = `SELECT room_id, CONCAT(room_name, ': $',rate) as room_dropdown FROM Room_Types;`;
+    let query2 = `SELECT cat_id, cat_name FROM Cats;`;
+    let query3 = `SELECT room_id, room_name FROM Room_Types;`;
     db.pool.query(query, function(error, rows, fields){
         let reservations = rows;
+        console.log(reservations)
         db.pool.query(query1, function(error, rows, fields){
             let customers = rows;
             db.pool.query(query2, function(error, rows, fields){
@@ -470,12 +471,22 @@ app.get('/reservations', function(req, res) {
 // Create new reservation
 app.post('/add-res-form', function(req, res){
     let data = req.body;
-    // Check if room name and rate are empty
-    if (data['customer_id'] == "" || data['cat_id'] == "" || data['room_id'] == "" || data['check_in'] == "" || data['check_out'] == "") {
-        // error message?
-    }
+
     let query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', '${data['cat_id']}', '${data['room_id']}', '${data['check_in']}', '${data['check_out']}');`;
-    
+
+    // Check for NULL values in cat_id or room_id
+    if (data['room_id'] == "" && 'cat_id' in data == false) {
+        query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', NULL, NULL, '${data['check_in']}', '${data['check_out']}');`;
+    }
+
+    else if ('cat_id' in data == false) {
+        query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', NULL, '${data['room_id']}', '${data['check_in']}', '${data['check_out']}');`;
+    }
+
+    else if (data['room_id'] == "") {
+        query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', '${data['cat_id']}', NULL, '${data['check_in']}', '${data['check_out']}');`;
+    }
+
     db.pool.query(query1, function(error, rows, fields){
         if (error) {
             console.log(error)

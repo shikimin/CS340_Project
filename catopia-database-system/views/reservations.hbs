@@ -53,24 +53,24 @@
                     <select name="customer_id" id="customer_id_add" onchange="loadCats(this.value,'cat-dropdown-add')" required>
                     <option value="" selected></option>
                     {{#each customers}}
-                    <option value="{{this.customer_id}}">{{this.customer_id}}. {{this.customer_dropdown}}</option>
+                    <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                     {{/each}}
                     </select><br>
 
                 <!-- Options for selectable cats to be determined by customer chosen -->
                 <label for="cat-dropdown-add">Cat: </label>
                 <select name="cat_id" id="cat-dropdown-add">
-                    <option value="0" selected></option>
+                    <option value="" selected></option>
                     {{#each cats}}
-                    <option value="{{this.cat_id}}">{{this.cat_dropdown}}</option>
+                    <option value="{{this.cat_id}}">{{this.cat_name}}</option>
                     {{/each}}
                 </select><br>
 
                 <label for="room_id_add">Room Type: </label>
                 <select name="room_id" id="room_id_add">
-                    <option value="0" selected></option>
+                    <option value="" selected></option>
                     {{#each rooms}}
-                    <option value={{this.room_id}}>{{this.room_dropdown}}</option>
+                    <option value="{{this.room_id}}">{{this.room_name}}</option>
                     {{/each}}
                 </select><br>
 
@@ -98,7 +98,7 @@
                 <option value="" selected></option>
 
                 {{#each customers}}
-                <option value="{{this.customer_id}}">{{this.customer_id}}. {{this.customer_dropdown}}</option>
+                <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                 {{/each}}
                 </select><br>
 
@@ -106,7 +106,7 @@
                 <select name="cat_id" id="cat-dropdown-update">
                     <option value="0" selected></option>
                     {{#each cats}}
-                    <option value="{{this.cat_id}}">{{this.cat_dropdown}}</option>
+                    <option value="{{this.cat_id}}">{{this.cat_name}}</option>
                     {{/each}}
                 </select><br>
 
@@ -114,7 +114,7 @@
                 <select name="room_id" id="room_id_update">
                     <option value="0" selected></option>
                     {{#each rooms}}
-                    <option value={{this.room_id}}>{{this.room_dropdown}}</option>
+                    <option value="{{this.room_id}}">{{this.room_name}}</option>
                     {{/each}}
                 </select><br>
 
