@@ -1,9 +1,9 @@
 
 // Get the objects we need to modify
-let updateRoomForm = document.getElementById('update-res-form');
+let updateResForm = document.getElementById('update-res-form');
 
 // Modify the objects we need
-updateRoomForm.addEventListener("submit", (e) => {
+updateResForm.addEventListener("submit", (e) => {
    
     // Prevent the form from submitting
     e.preventDefault();
@@ -17,7 +17,7 @@ updateRoomForm.addEventListener("submit", (e) => {
     let inputCheckOut = document.getElementById("check_out_update");
 
     // Get the values from the form fields
-    let IDvalue = inputID.value;
+    let IDvalue = inputID.innerHTML;
     let customerIDValue = inputCustomerID.value;
     let catIDValue = inputCatID.value;
     let roomIDValue = inputRoomID.value;
