@@ -65,7 +65,7 @@ function loadCats(customerID, tableID) {
 function updateCatDropdown(data, tableID) {
     let parsedData = JSON.parse(data);
     let catDropdown = document.getElementById(tableID);
-    let catDropdownHTML = '';
+    let catDropdownHTML = '<option value=""></option>';
 
     for (let i = 0; i < parsedData.cats.length; i++) {
         catDropdownHTML += '<option value="' + parsedData.cats[i].cat_id + '">' + parsedData.cats[i].cat_id + '. ' + parsedData.cats[i].cat_name + '</option>';
