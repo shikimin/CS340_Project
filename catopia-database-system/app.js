@@ -73,6 +73,44 @@ app.get('/customers', function(req, res)
         })
     });
 
+// Get Reservations
+app.get('/reservations', function(req, res) {
+    let query = `SELECT Reservations.res_id AS "res_id", 
+                CONCAT(Customers.first_name, " ", Customers.last_name) AS "customer_name", 
+                CASE
+                    WHEN Reservations.cat_id IS NULL THEN ""
+                    ELSE Cats.cat_name
+                END AS "cat_name",
+                CASE
+                    WHEN Reservations.room_id IS NULL THEN ""
+                    ELSE Room_Types.room_name
+                END AS "room_name",
+                DATE_FORMAT(check_in_date, '%Y/%c/%d') AS "check_in_date", 
+                DATE_FORMAT(check_out_date, '%Y/%c/%d') AS "check_out_date" 
+                FROM Reservations
+                INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id
+                LEFT JOIN Cats ON Cats.cat_id = Reservations.cat_id
+                LEFT JOIN Room_Types ON Room_Types.room_id = Reservations.room_id
+                ORDER BY Reservations.res_id ASC;`;
+
+    let query1 = `SELECT customer_id, CONCAT(Customers.first_name, ' ', Customers.last_name) AS 'customer_dropdown' FROM Customers;`;
+    let query2 = `SELECT cat_id, cat_name FROM Cats;`;
+    let query3 = `SELECT room_id, room_name FROM Room_Types;`;
+    db.pool.query(query, function(error, rows, fields){
+        let reservations = rows;
+        db.pool.query(query1, function(error, rows, fields){
+            let customers = rows;
+            db.pool.query(query2, function(error, rows, fields){
+                let cats = rows;
+                db.pool.query(query3, function(error, rows, fields){
+                    let rooms = rows;
+                    return res.render('reservations', {data: reservations, customers: customers, cats: cats, rooms: rooms});
+                })
+            })
+        })
+    });
+});
+
 // Get Services
 app.get('/services', function(req, res)
     {  
@@ -85,7 +123,7 @@ app.get('/services', function(req, res)
         })
     });
 
-// Get Services
+// Get Purchased Services
 app.get('/purchased_services', function(req, res)
     {  
         let query = `SELECT Purchased_Services.purchase_id AS "purchase_id", 
@@ -116,6 +154,16 @@ app.get('/purchased_services', function(req, res)
     });
 
 
+// Get Room_Types
+app.get('/room_types', function(req, res) {  
+    let query1 = "SELECT * FROM Room_Types ORDER BY room_id ASC;";
+    db.pool.query(query1, function(error, rows, fields){    // Execute the query
+        let room_types = rows;
+        return res.render('room_types', {data: room_types});
+    });
+});
+
+
 // Create new cat
 app.post('/add-cat-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
@@ -141,6 +189,7 @@ app.post('/add-cat-form', function(req, res){
         }
     })
 });
+
 
 // Create new customer
 app.post('/add-customer-form', function(req, res){
@@ -169,6 +218,7 @@ app.post('/add-customer-form', function(req, res){
     })
 });
 
+
 // Create new service
 app.post('/add-service-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
@@ -195,6 +245,34 @@ app.post('/add-service-form', function(req, res){
     })
 });
 
+
+// Create new reservation
+app.post('/add-res-form', function(req, res){
+    let data = req.body;
+
+    let query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', '${data['cat_id']}', '${data['room_id']}', '${data['check_in']}', '${data['check_out']}');`;
+
+    // Check for NULL values in cat_id or room_id
+    if (data['room_id'] == "" && 'cat_id' in data == false) {
+        query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', NULL, NULL, '${data['check_in']}', '${data['check_out']}');`;
+    } else if ('cat_id' in data == false || data['cat_id'] == "") {
+        query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', NULL, '${data['room_id']}', '${data['check_in']}', '${data['check_out']}');`;
+    } else if (data['room_id'] == "") {
+        query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', '${data['cat_id']}', NULL, '${data['check_in']}', '${data['check_out']}');`;
+    };
+
+    db.pool.query(query1, function(error, rows, fields){
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else {
+            res.redirect('/reservations');
+        }
+    });
+});
+
+
 // Create new service
 app.post('/add-purchase-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
@@ -219,6 +297,28 @@ app.post('/add-purchase-form', function(req, res){
             res.redirect('/purchased_services');
         }
     })
+});
+
+
+// Create new room_type
+app.post('/add-room-form', function(req, res){
+    let data = req.body;
+    // Check if room name and rate are empty
+    if (data['add-room-name'] == "" || data['add-rate'] == "")
+    {
+        // error message?
+    }
+    let query1 = `INSERT INTO Room_Types (room_name, rate) VALUES ('${data['add-room-name']}', '${data['add-rate']}');`;
+    db.pool.query(query1, function(error, rows, fields){
+        if (error) {
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            res.redirect('/room_types');
+        }
+    });
 });
 
 
@@ -260,7 +360,7 @@ app.put('/put-cat-ajax', (req,res,next) => {
   })});
 
 
-  // Update Customer
+// Update Customer
 app.put('/put-customer-ajax', (req,res,next) => {
     let data = req.body;
   
@@ -298,7 +398,54 @@ app.put('/put-customer-ajax', (req,res,next) => {
             }
   })});
 
-  // Update Services
+
+// Update Reservation
+app.put('/put-res-ajax', (req,res,next) => {
+    let data = req.body;
+
+    console.log(data)
+
+    let resID = parseInt(data.resID);
+    let customerID = parseInt(data.customerID);
+    let catID = parseInt(data.catID);
+    let roomID = parseInt(data.roomID);
+    let checkIn = data.checkIn;
+    let checkOut = data.checkOut;
+
+    let queryUpdateRes = `UPDATE Reservations SET customer_id = "${customerID}", cat_id = "${catID}", room_id = "${roomID}", check_in_date = "${checkIn}", check_out_date = "${checkOut}" WHERE res_id = ${resID};`;
+    
+    // Check for NULL values in cat_id or room_id
+    if (data['roomID'] == '0' && data['catID'] == '') {
+        queryUpdateRes = `UPDATE Reservations SET customer_id = "${customerID}", cat_id = NULL, room_id = NULL, check_in_date = "${checkIn}", check_out_date = "${checkOut}" WHERE res_id = ${resID};`;
+    } else if (data['roomID'] == '0') {
+        queryUpdateRes = `UPDATE Reservations SET customer_id = "${customerID}", cat_id = "${catID}", room_id = NULL, check_in_date = "${checkIn}", check_out_date = "${checkOut}" WHERE res_id = ${resID};`;;
+    } else if (data['catID'] == "") {
+        queryUpdateRes = `UPDATE Reservations SET customer_id = "${customerID}", cat_id = NULL, room_id = "${roomID}", check_in_date = "${checkIn}", check_out_date = "${checkOut}" WHERE res_id = ${resID};`;
+    };
+    
+    let selectRes = `SELECT * FROM Reservations WHERE res_id = ?`
+    
+    db.pool.query(queryUpdateRes, [resID, customerID, catID, roomID, checkIn, checkOut], function(error, rows, fields){
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        }
+        else
+        {
+            db.pool.query(selectRes, [resID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+  
+
+// Update Services
   app.put('/put-service-ajax', (req,res,next) => {
     let data = req.body;
   
@@ -335,7 +482,8 @@ app.put('/put-customer-ajax', (req,res,next) => {
             }
   })});
 
-// Update Cat
+
+// Update Purchased Services
 app.put('/put-purchase-ajax', (req,res,next) => {
     let data = req.body;
   
@@ -347,31 +495,63 @@ app.put('/put-purchase-ajax', (req,res,next) => {
     let queryUpdatePurchase = `UPDATE Purchased_Services SET service_id = "${serviceID}" , res_id = "${resID}", quantity = "${quantity}" WHERE purchase_id = "${purchaseID}"`
     let selectPurchase = `SELECT * FROM Purchased_Services WHERE purchase_id = ?`
   
-          // Run the 1st query
-          db.pool.query(queryUpdatePurchase, [purchaseID, serviceID, resID, quantity], function(error, rows, fields){
-            if (error) {
+        // Run the 1st query
+        db.pool.query(queryUpdatePurchase, [purchaseID, serviceID, resID, quantity], function(error, rows, fields){
+        if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else
+        {
+                // Run the second query
+                db.pool.query(selectPurchase, [purchaseID], function(error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+
+// Update Room_Type
+app.put('/put-room-ajax', (req,res,next) => {
+    let data = req.body;
+
+    let roomID = parseInt(data.roomID);
+    let roomName = data.roomName;
+    let rate = parseFloat(data.rate);
+
+    let queryUpdateRoom = `UPDATE Room_Types SET room_name = "${roomName}", rate = "${rate}" WHERE room_id = ${roomID};`;
+    let selectRoom = `SELECT * FROM Room_Types WHERE room_id = ?`
+    
+    db.pool.query(queryUpdateRoom, [roomID, roomName, rate], function(error, rows, fields){
+        if (error) {
             console.log(error);
             res.sendStatus(400);
-            }
-
-            // If there was no error, we run our second query and return that data so we can use it to update the people's
-            // table on the front-end
-            else
-            {
-                 // Run the second query
-                 db.pool.query(selectPurchase, [purchaseID], function(error, rows, fields) {
-
-                    if (error) {
-                        console.log(error);
-                        res.sendStatus(400);
-                    } else {
-                        res.send(rows);
-                    }
-                })
-            }
-  })});
+        }
+        else
+        {
+            db.pool.query(selectRoom, [roomID], function(error, rows, fields) {
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
 
 
 // Delete Cat
@@ -415,6 +595,26 @@ app.delete('/delete-service-ajax/', function(req,res,next){
         })
     });
 
+
+// Delete Reservation
+app.delete('/delete-res-ajax/', function(req,res,next){
+    let data = req.body;
+    let resID = parseInt(data.id);
+    let deleteRes = `DELETE FROM Reservations WHERE res_id = ?`;
+  
+        db.pool.query(deleteRes, [resID], function(error, rows, fields){
+            if (error) {
+            console.log(error);
+            res.sendStatus(400);
+            }
+            else
+            {
+            res.sendStatus(204);
+            }
+        })
+});
+
+
 // Delete Service
 app.delete('/delete-purchase-ajax/', function(req,res,next){
     let data = req.body;
@@ -435,146 +635,6 @@ app.delete('/delete-purchase-ajax/', function(req,res,next){
         })
     });
 
-// Get Reservations
-app.get('/reservations', function(req, res) {
-    let query = `SELECT Reservations.res_id AS "res_id", 
-                CONCAT(Customers.first_name, " ", Customers.last_name) AS "customer_name", 
-                Cats.cat_name AS "cat_name",
-                Room_Types.room_name AS "room_name", 
-                DATE_FORMAT(check_in_date, '%Y/%c/%d') AS "check_in_date", 
-                DATE_FORMAT(check_out_date, '%Y/%c/%d') AS "check_out_date" 
-                FROM Reservations
-                INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id
-                INNER JOIN Cats ON Cats.cat_id = Reservations.cat_id
-                INNER JOIN Room_Types ON Room_Types.room_id = Reservations.room_id
-                ORDER BY Reservations.res_id ASC;`;
-
-    let query1 = `SELECT customer_id, CONCAT(Customers.first_name, ' ', Customers.last_name) AS 'customer_dropdown' FROM Customers;`;
-    let query2 = `SELECT cat_id, cat_name FROM Cats;`;
-    let query3 = `SELECT room_id, room_name FROM Room_Types;`;
-    db.pool.query(query, function(error, rows, fields){
-        let reservations = rows;
-        console.log(reservations)
-        db.pool.query(query1, function(error, rows, fields){
-            let customers = rows;
-            db.pool.query(query2, function(error, rows, fields){
-                let cats = rows;
-                db.pool.query(query3, function(error, rows, fields){
-                    let rooms = rows;
-                    return res.render('reservations', {data: reservations, customers: customers, cats: cats, rooms: rooms});
-                })
-            })
-        })
-    });
-});
-
-// Create new reservation
-app.post('/add-res-form', function(req, res){
-    let data = req.body;
-
-    let query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', '${data['cat_id']}', '${data['room_id']}', '${data['check_in']}', '${data['check_out']}');`;
-
-    // Check for NULL values in cat_id or room_id
-    if (data['room_id'] == "" && 'cat_id' in data == false) {
-        query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', NULL, NULL, '${data['check_in']}', '${data['check_out']}');`;
-    }
-
-    else if ('cat_id' in data == false) {
-        query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', NULL, '${data['room_id']}', '${data['check_in']}', '${data['check_out']}');`;
-    }
-
-    else if (data['room_id'] == "") {
-        query1 = `INSERT INTO Reservations (customer_id, cat_id, room_id, check_in_date, check_out_date) VALUES ('${data['customer_id']}', '${data['cat_id']}', NULL, '${data['check_in']}', '${data['check_out']}');`;
-    }
-
-    db.pool.query(query1, function(error, rows, fields){
-        if (error) {
-            console.log(error)
-            res.sendStatus(400);
-        }
-        else {
-            res.redirect('/reservations');
-        }
-    });
-});
-
-app.delete('/delete-res-ajax/', function(req,res,next){
-    let data = req.body;
-    let resID = parseInt(data.id);
-    let deleteRes = `DELETE FROM Reservations WHERE res_id = ?`;
-  
-        db.pool.query(deleteRes, [resID], function(error, rows, fields){
-            if (error) {
-            console.log(error);
-            res.sendStatus(400);
-            }
-            else
-            {
-            res.sendStatus(204);
-            }
-        })
-});
-
-app.put('/put-res-ajax', (req,res,next) => {
-    let data = req.body;
-
-    let resID = parseInt(data.resID);
-    let customerID = parseInt(data.customerID);
-    let catID = parseInt(data.catID);
-    let roomID = parseInt(data.roomID);
-    let checkIn = data.checkIn;
-    let checkOut = data.checkOut;
-
-    let queryUpdateRes = `UPDATE Reservations SET customer_id = "${customerID}", cat_id = "${catID}", room_id = "${roomID}", check_in_date = "${checkIn}", check_out_date = "${checkOut}" WHERE res_id = ${resID};`;
-    let selectRes = `SELECT * FROM Reservations WHERE res_id = ?`
-    
-    db.pool.query(queryUpdateRes, [resID, customerID, catID, roomID, checkIn, checkOut], function(error, rows, fields){
-        if (error) {
-            console.log(error);
-            res.sendStatus(400);
-        }
-        else
-        {
-            db.pool.query(selectRes, [resID], function(error, rows, fields) {
-                if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.send(rows);
-                }
-            })
-        }
-    })
-});
-// Get Room_Types
-app.get('/room_types', function(req, res) {  
-    let query1 = "SELECT * FROM Room_Types ORDER BY room_id ASC;";
-    db.pool.query(query1, function(error, rows, fields){    // Execute the query
-        let room_types = rows;
-        return res.render('room_types', {data: room_types});
-    });
-});
-
-// Create new room_type
-app.post('/add-room-form', function(req, res){
-    let data = req.body;
-    // Check if room name and rate are empty
-    if (data['add-room-name'] == "" || data['add-rate'] == "")
-    {
-        // error message?
-    }
-    let query1 = `INSERT INTO Room_Types (room_name, rate) VALUES ('${data['add-room-name']}', '${data['add-rate']}');`;
-    db.pool.query(query1, function(error, rows, fields){
-        if (error) {
-            console.log(error)
-            res.sendStatus(400);
-        }
-        else
-        {
-            res.redirect('/room_types');
-        }
-    });
-});
 
 // Delete Room_Type
 app.delete('/delete-room-ajax/', function(req,res,next){
@@ -594,35 +654,7 @@ app.delete('/delete-room-ajax/', function(req,res,next){
         })
     });
 
-// Update Room_Type
-app.put('/put-room-ajax', (req,res,next) => {
-    let data = req.body;
 
-    let roomID = parseInt(data.roomID);
-    let roomName = data.roomName;
-    let rate = parseFloat(data.rate);
-
-    let queryUpdateRoom = `UPDATE Room_Types SET room_name = "${roomName}", rate = "${rate}" WHERE room_id = ${roomID};`;
-    let selectRoom = `SELECT * FROM Room_Types WHERE room_id = ?`
-    
-    db.pool.query(queryUpdateRoom, [roomID, roomName, rate], function(error, rows, fields){
-        if (error) {
-            console.log(error);
-            res.sendStatus(400);
-        }
-        else
-        {
-            db.pool.query(selectRoom, [roomID], function(error, rows, fields) {
-                if (error) {
-                    console.log(error);
-                    res.sendStatus(400);
-                } else {
-                    res.send(rows);
-                }
-            })
-        }
-    })
-});
 
 /*
     LISTENER
