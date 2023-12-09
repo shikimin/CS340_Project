@@ -128,18 +128,21 @@ app.get('/purchased_services', function(req, res)
     {  
         let query = `SELECT Purchased_Services.purchase_id AS "purchase_id", 
         Services.service_name AS "service_name", 
-        CONCAT(Customers.first_name, " ", Customers.last_name, " | ", Cats.cat_name, " | ", Reservations.check_in_date) AS "reservation", 
+        CONCAT(Customers.first_name, " ", Customers.last_name, " | ", IF(Reservations.cat_id IS NULL, "N/A", Cats.cat_name), " | ", Reservations.check_in_date) AS "reservation", 
         Purchased_Services.quantity AS "quantity" 
         FROM Purchased_Services
         INNER JOIN Services ON Services.service_id = Purchased_Services.service_id
         INNER JOIN Reservations ON Reservations.res_id = Purchased_Services.res_id
-        INNER JOIN Cats ON Reservations.cat_id = Cats.cat_id
-        INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;`;
+        LEFT JOIN Cats ON Reservations.cat_id = Cats.cat_id
+        INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id;`;
 
-        let query2 = `SELECT service_id, service_name as 'services_dropdown' FROM Services ORDER BY service_id ASC;`
-        let query3 = `SELECT res_id, CONCAT(Customers.first_name, " ", Customers.last_name, " | ", Cats.cat_name, " | ", Reservations.check_in_date) AS 'reservations_dropdown' FROM Reservations
-        INNER JOIN Cats ON Reservations.cat_id = Cats.cat_id
-        INNER JOIN Customers ON Customers.customer_id = Cats.customer_id;`
+        let query2 = `SELECT service_id, service_name AS 'services_dropdown' 
+        FROM Services 
+        ORDER BY service_id ASC;`
+        
+        let query3 = `SELECT res_id, CONCAT(Customers.first_name, " ", Customers.last_name, " | ", IF(Reservations.cat_id IS NULL, "N/A", Cats.cat_name), " | ", Reservations.check_in_date) AS 'reservations_dropdown' FROM Reservations
+        LEFT JOIN Cats ON Reservations.cat_id = Cats.cat_id
+        INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id;`
 
         db.pool.query(query, function(error, rows, fields){
             let purchases = rows;
