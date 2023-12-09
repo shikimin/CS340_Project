@@ -276,7 +276,7 @@ app.post('/add-res-form', function(req, res){
 });
 
 
-// Create new service
+// Create new purchase
 app.post('/add-purchase-form', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
@@ -495,7 +495,7 @@ app.put('/put-purchase-ajax', (req,res,next) => {
     let resID = parseInt(data.resID);
     let quantity = parseInt(data.quantity);
     
-    let queryUpdatePurchase = `UPDATE Purchased_Services SET service_id = "${serviceID}" , res_id = "${resID}", quantity = "${quantity}" WHERE purchase_id = "${purchaseID}"`
+    let queryUpdatePurchase = `UPDATE Purchased_Services SET service_id = "${serviceID}" , res_id = "${resID}", quantity = "${quantity}" WHERE purchase_id = "${purchaseID}";`
     let selectPurchase = `SELECT * FROM Purchased_Services WHERE purchase_id = ?`
   
         // Run the 1st query
