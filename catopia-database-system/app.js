@@ -128,11 +128,14 @@ app.get('/services', function(req, res)
 app.get('/purchased_services', function(req, res)
     {  
         let query = `SELECT Purchased_Services.purchase_id AS "purchase_id", 
-        Services.service_name AS "service_name", 
+        CASE
+            WHEN Purchased_Services.service_id IS NULL THEN ""
+            ELSE Services.service_name
+        END AS "service_name", 
         CONCAT(Customers.first_name, " ", Customers.last_name, " | ", IF(Reservations.cat_id IS NULL, "N/A", Cats.cat_name), " | ", Reservations.check_in_date) AS "reservation", 
         Purchased_Services.quantity AS "quantity" 
         FROM Purchased_Services
-        INNER JOIN Services ON Services.service_id = Purchased_Services.service_id
+        LEFT JOIN Services ON Services.service_id = Purchased_Services.service_id
         INNER JOIN Reservations ON Reservations.res_id = Purchased_Services.res_id
         LEFT JOIN Cats ON Reservations.cat_id = Cats.cat_id
         INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id;`;
