@@ -83,10 +83,10 @@ function updateCatDropdown(data, tableID, catID=null) {
             catID = parsedData.cats[0].cat_id;
         }
         if (parsedData.cats[i].cat_id == catID) {
-            catDropdownHTML += '<option value="' + parsedData.cats[i].cat_id + '" selected>' + parsedData.cats[i].cat_id + ". " + parsedData.cats[i].cat_name + '</option>';
+            catDropdownHTML += '<option value="' + parsedData.cats[i].cat_id + '" selected>' + parsedData.cats[i].cat_name + '</option>';
         }
         else {
-            catDropdownHTML += '<option value="' + parsedData.cats[i].cat_id + '">' + parsedData.cats[i].cat_id + ". " + parsedData.cats[i].cat_name + '</option>';
+            catDropdownHTML += '<option value="' + parsedData.cats[i].cat_id + '">' + parsedData.cats[i].cat_name + '</option>';
         }
     }
     catDropdown.innerHTML = catDropdownHTML;
