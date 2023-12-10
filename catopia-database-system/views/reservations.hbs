@@ -1,9 +1,15 @@
 <!-- 
-    Citation for the following page:
+    Citations for the following page:
+    
     Date: 11/2/2023
     Based on sample HTML pages from:
     Source URL: https://canvas.oregonstate.edu/courses/1933532/assignments/9297505?module_item_id=23359472
- -->
+
+
+    Date: 11/6/23
+    Based on code from Node set up guide from:
+    Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+//  -->
 
 <html>
 <head>
@@ -13,6 +19,7 @@
 <body>
     <h1>Reservations</h1>
 
+    {{!-- Display table data --}}
     <div class="table"> 
         <table id="res-table" border="1" cellpadding="4">
             <caption style="text-align:left"><strong>Browse existing reservations:</strong></caption>
@@ -46,6 +53,7 @@
         </table>
     </div>
 
+    {{!-- Add Form --}}
     <div class="addform">
         <form class="add-res-form" method="POST" action="/add-res-form">
             <fieldset>
@@ -86,7 +94,8 @@
           </form>
     </div>
     <script src="./js/move_text.js"></script>
-
+    
+    {{!-- Update Form --}}
     <div class="updateform" style="display:none">
         <form id="update-res-form">
             <fieldset>
@@ -134,6 +143,7 @@
         <script src="../js/update_reservations.js"></script>
     </div>
     
+    {{!-- Delete Form --}}
     <div class="deleteform" style="display:none">
         <form>
             <fieldset>

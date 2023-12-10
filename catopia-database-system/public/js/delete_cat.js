@@ -1,3 +1,11 @@
+// <!-- 
+//     Citation for the following page:
+//     Date: 11/6/23
+//     Based on code from Node set up guide from:
+//     Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+//  -->
+
+
 // code for deleteCat function using jQuery
 function deleteCat(catID) {
     let link = '/delete-cat-ajax/';

@@ -1,3 +1,10 @@
+// <!-- 
+//     Citation for the following page:
+//     Date: 11/6/23
+//     Based on code from Node set up guide from:
+//     Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+//  -->
+
 
 // Get the objects we need to modify
 let updateRoomForm = document.getElementById('update-room-form');

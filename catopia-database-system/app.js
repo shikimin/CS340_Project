@@ -1,3 +1,10 @@
+// <!-- 
+//     Citation for the following page:
+//     Date: 11/6/23
+//     Based on code from Node set up guide from:
+//     Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app
+//  -->
+
 // App.js
 
 /*
@@ -9,7 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static(__dirname + '/public'))
 
-PORT        = 1839;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 11790;                 // Set a port number at the top so it's easy to change in the future
 // Database
 var db = require('./database/db-connector')
 
@@ -94,6 +101,7 @@ app.get('/reservations', function(req, res) {
                 LEFT JOIN Room_Types ON Room_Types.room_id = Reservations.room_id
                 ORDER BY Reservations.res_id ASC;`;
 
+    // queries for dropdown menus
     let query1 = `SELECT customer_id, CONCAT(Customers.first_name, ' ', Customers.last_name) AS 'customer_dropdown' FROM Customers;`;
     let query2 = `SELECT cat_id, cat_name FROM Cats;`;
     let query3 = `SELECT room_id, room_name FROM Room_Types;`;
@@ -140,10 +148,11 @@ app.get('/purchased_services', function(req, res)
         LEFT JOIN Cats ON Reservations.cat_id = Cats.cat_id
         INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id;`;
 
+        //queries for dropdown menus
         let query2 = `SELECT service_id, service_name AS 'services_dropdown' 
         FROM Services 
         ORDER BY service_id ASC;`
-        
+
         let query3 = `SELECT res_id, CONCAT(Customers.first_name, " ", Customers.last_name, " | ", IF(Reservations.cat_id IS NULL, "N/A", Cats.cat_name), " | ", Reservations.check_in_date) AS 'reservations_dropdown' FROM Reservations
         LEFT JOIN Cats ON Reservations.cat_id = Cats.cat_id
         INNER JOIN Customers ON Customers.customer_id = Reservations.customer_id;`
@@ -297,8 +306,7 @@ app.post('/add-purchase-form', function(req, res){
             res.sendStatus(400);
         }
 
-        // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
-        // presents it on the screen
+        // If there was no error, we redirect back to our root route
         else
         {
             res.redirect('/purchased_services');
@@ -349,8 +357,7 @@ app.put('/put-cat-ajax', (req,res,next) => {
             res.sendStatus(400);
             }
 
-            // If there was no error, we run our second query and return that data so we can use it to update the people's
-            // table on the front-end
+            // If there was no error, we run our second query and return that data so we can use it to update the table on the front-end
             else
             {
                  // Run the second query
@@ -383,13 +390,10 @@ app.put('/put-customer-ajax', (req,res,next) => {
           db.pool.query(queryUpdateCustomer, [customerID, firstName, lastName, phone], function(error, rows, fields){
             if (error) {
 
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
             res.sendStatus(400);
             }
 
-            // If there was no error, we run our second query and return that data so we can use it to update the people's
-            // table on the front-end
             else
             {
                  // Run the second query
@@ -466,14 +470,10 @@ app.put('/put-res-ajax', (req,res,next) => {
           // Run the 1st query
           db.pool.query(queryUpdateService, [serviceID, serviceName, price], function(error, rows, fields){
             if (error) {
-
-            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
             console.log(error);
             res.sendStatus(400);
             }
 
-            // If there was no error, we run our second query and return that data so we can use it to update the people's
-            // table on the front-end
             else
             {
                  // Run the second query
@@ -505,14 +505,10 @@ app.put('/put-purchase-ajax', (req,res,next) => {
         // Run the 1st query
         db.pool.query(queryUpdatePurchase, [purchaseID, serviceID, resID, quantity], function(error, rows, fields){
         if (error) {
-
-        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
         console.log(error);
         res.sendStatus(400);
         }
-
-        // If there was no error, we run our second query and return that data so we can use it to update the people's
-        // table on the front-end
+        
         else
         {
                 // Run the second query
