@@ -1,5 +1,5 @@
 function moveText(data, destinations) {
-    
+    console.log(data, destinations);
     // show form
     let form = document.getElementById(destinations[0]).parentNode.parentNode.parentNode;
     if (form.style.display === "none") {
@@ -9,6 +9,7 @@ function moveText(data, destinations) {
     // Populate form
     for (let i = 0; i < data.length; i++) {
         // display correct option in dropdown menu
+        console.log(document.getElementById(destinations[i]).tagName);
         if (document.getElementById(destinations[i]).tagName == "SELECT") {
             dropdownOptions = document.getElementById(destinations[i]).options;
             for (let j = 0; j < dropdownOptions.length; j++) {
@@ -32,8 +33,9 @@ function moveText(data, destinations) {
     // for updating cat dropdown on update Reservation form
     if (destinations[0] == 'res_id_update') {
         customer_id = document.getElementById(destinations[1]).value;
+        cat_id = document.getElementById(destinations[2]).value;
         console.log(customer_id);
-        loadCats(customer_id, 'cat-dropdown-update');
+        loadCats(customer_id, 'cat-dropdown-update', cat_id);
     }
 
     // Snap to form
@@ -62,13 +64,22 @@ function loadCats(customerID, tableID) {
     xhttp.send();
 };
 
-function updateCatDropdown(data, tableID) {
+function updateCatDropdown(data, tableID, catID=null) {
     let parsedData = JSON.parse(data);
     let catDropdown = document.getElementById(tableID);
     let catDropdownHTML = '<option value=""></option>';
 
+    console.log("update:" + parsedData);
     for (let i = 0; i < parsedData.cats.length; i++) {
-        catDropdownHTML += '<option value="' + parsedData.cats[i].cat_id + '">' + parsedData.cats[i].cat_id + '. ' + parsedData.cats[i].cat_name + '</option>';
+        if (!catID) {
+            catID = parsedData.cats[0].cat_id;
+        }
+        if (parsedData.cats[i].cat_id == catID) {
+            catDropdownHTML += '<option value="' + parsedData.cats[i].cat_id + '" selected>' + parsedData.cats[i].cat_id + ". " + parsedData.cats[i].cat_name + '</option>';
+        }
+        else {
+            catDropdownHTML += '<option value="' + parsedData.cats[i].cat_id + '">' + parsedData.cats[i].cat_id + ". " + parsedData.cats[i].cat_name + '</option>';
+        }
     }
     catDropdown.innerHTML = catDropdownHTML;
 };

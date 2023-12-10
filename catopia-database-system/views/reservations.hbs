@@ -13,7 +13,7 @@
 <body>
     <h1>Reservations</h1>
 
-    <div>
+    <div class="table"> 
         <table id="res-table" border="1" cellpadding="4">
             <caption style="text-align:left"><strong>Browse existing reservations:</strong></caption>
             <thead>
@@ -33,11 +33,11 @@
                 <tr data-value={{this.res_id}}>
                     <td>{{this.res_id}}</td>
                     <td>{{this.customer_name}}</td>
-                    <td>{{this.cat_name}}</td>
+                    <td><p hidden>{{this.cat_id}}</p>{{this.cat_name}}</td>
                     <td>{{this.room_name}}</td>
                     <td>{{this.check_in_date}}</td>
                     <td>{{this.check_out_date}}</td>
-                    <td><a href="javascript:void(0);" onclick="moveText([{{this.res_id}}, '{{this.customer_name}}', '{{this.cat_name}}', '{{this.room_name}}', '{{this.check_in_date}}', '{{this.check_out_date}}'], ['res_id_update', 'customer_id_update', 'cat-dropdown-update', 'room_id_update', 'check_in_update', 'check_out_update'])">Edit</a></td>
+                    <td><a href="javascript:void(0);" onclick="moveText([{{this.res_id}}, '{{this.customer_name}}', '{{this.cat_id}}', '{{this.room_name}}', '{{this.check_in_date}}', '{{this.check_out_date}}'], ['res_id_update', 'customer_id_update', 'cat-dropdown-update', 'room_id_update', 'check_in_update', 'check_out_update'])">Edit</a></td>
                     <td><a href="javascript:void(0);" onclick="moveText([{{this.res_id}}, '{{this.customer_name}}', '{{this.cat_name}}', '{{this.room_name}}', '{{this.check_in_date}}', '{{this.check_out_date}}'], ['res_id_delete', 'customer_name_delete', 'cat_name_delete', 'room_id_delete', 'check_in_delete', 'check_out_delete'])">Delete</a></td>
                 </tr>
                 {{/each}}
@@ -46,7 +46,7 @@
         </table>
     </div>
 
-    <div class="addform" style="float:left">
+    <div class="addform">
         <form class="add-res-form" method="POST" action="/add-res-form">
             <fieldset>
                 <legend><strong>Add New Reservation</strong></legend>
@@ -91,7 +91,9 @@
         <form id="update-res-form">
             <fieldset>
                 <legend><strong>Update Existing Reservation</strong></legend>
-                <p style="display:inline"><b>Reservation ID: </b></p>
+
+                
+                <p style="display:inline">Reservation ID: </p>
                 <p id="res_id_update" style="display:inline">1</p><br>
                 
                 <label for="customer_id_update">Customer: </label>
@@ -104,7 +106,7 @@
                 </select><br>
 
                 <label for="cat-dropdown-update">Cat: </label>
-                <select name="cat_id" id="cat-dropdown-update">
+                <select name="cat-dropdown" id="cat-dropdown-update">
                     <option value="0" selected></option>
                     {{#each cats}}
                     <option value="{{this.cat_id}}">{{this.cat_name}}</option>

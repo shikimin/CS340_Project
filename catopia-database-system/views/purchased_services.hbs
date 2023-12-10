@@ -53,12 +53,12 @@
                 <fieldset>
                     <legend><strong>Add New Purchase</strong></legend>
                     <label for="service_id"><b>Service: </b> </label>
-                    <select name="service_id" id="service_id" required>
+                    <select name="service_id" id="service_id" required><br>
                         <option value="" selected></option>
                         {{#each services}}
                         <option value="{{this.service_id}}">{{this.services_dropdown}}</option>
                         {{/each}}
-                        </select>
+                        </select><br>
 
                     <label for="res_id"><b>Reservation: </b> </label>
                     <select name="res_id" id="res_id" required>
@@ -66,12 +66,14 @@
                         {{#each reservations}}
                         <option value="{{this.res_id}}">{{this.reservations_dropdown}}</option>
                         {{/each}}
-                    </select>
+                    </select><br>
 
                     <label for="quantity"><b>Quantity: </b> </label>
-                    <input type="number" id="quantity" name="quantity" min="1" required>
+                    <input type="number" id="quantity" name="quantity" min="1" required><br>
                 </fieldset>
-                <input type="submit" value="Submit">
+                <div class="buttons" align="center"> 
+                    <input type="submit" value="Submit">
+                <div class="buttons" align="center"> 
             </form>
         </div>
 
@@ -81,7 +83,7 @@
                 <fieldset>
                     <legend><strong>Update Existing Purchase</strong></legend>
                     <p style="display:inline"><b>Purchase ID: </b> </p>
-                    <p id="purchase_id_update" style="display:inline"></p>
+                    <p id="purchase_id_update" style="display:inline"></p><br>
 
                     <label for="service_update"><b>Service: </b> </label>
                     <select name="service_update" id="service_update" required>
@@ -89,7 +91,7 @@
                         {{#each services}}
                         <option value="{{this.service_id}}">{{this.services_dropdown}}</option>
                         {{/each}}
-                        </select>
+                        </select><br>
 
                     <label for="reservation_update"><b>Reservation: </b> </label>
                     <select name="reservation_update" id="reservation_update" required>
@@ -97,12 +99,14 @@
                         {{#each reservations}}
                         <option value="{{this.res_id}}">{{this.reservations_dropdown}}</option>
                         {{/each}}
-                    </select>
+                    </select><br>
 
                     <label for="quantity_update"><b>Quantity: </b> </label>
                     <input type="number" id="quantity_update" name="quantity_update" min="1" required>
                 </fieldset>
-                <input type="submit" value="Submit">
+                <div class="buttons" align="center"> 
+                    <input type="submit" value="Submit">
+                </div>
             </form>
             <script src="../js/update_purchase.js"></script>
         </div>
@@ -113,18 +117,20 @@
                 <fieldset>
                     <legend><strong>Delete Existing Purchase</strong></legend>
                     <p style="display:inline"><b>Purchase ID: </b></p>
-                    <p id="purchase_id_delete" style="display:inline"></p>
+                    <p id="purchase_id_delete" style="display:inline"></p><br>
 
                     <p style="display:inline"><b>Service: </b></p>
-                    <p id="service_delete" style="display:inline"></p>
+                    <p id="service_delete" style="display:inline"></p><br>
                     
                     <p style="display:inline"><b>Reservation: </b></p>
-                    <p id="reservation_delete" style="display:inline"></p>
+                    <p id="reservation_delete" style="display:inline"></p><br>
 
                     <label for="quantity_delete"><b>Quantity: </b></label>
-                    <input type="number" id="quantity_delete" name="quantity_delete">
+                    <input type="number" id="quantity_delete" name="quantity_delete"><br>
                 </fieldset>
-                <input type="button" value="Confirm" onclick="deletePurchase(document.getElementById('purchase_id_delete').innerHTML)">
+                <div class="buttons" align="center"> 
+                    <input type="button" value="Confirm" onclick="deletePurchase(document.getElementById('purchase_id_delete').innerHTML)">
+                </div>
             </form>
             <script src="../js/delete_purchase.js"></script>
         </div>

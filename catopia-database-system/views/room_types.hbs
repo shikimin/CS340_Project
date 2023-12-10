@@ -14,7 +14,7 @@
 <body>
     <h1>Room Types</h1>
 
-    <div>
+    <div class="table">
         <table id="room-table" border="1" cellpadding="4">
             <caption style="text-align:left"><strong>Browse existing room types:</strong></caption>
             <thead>
@@ -33,58 +33,67 @@
                     <td>{{this.room_name}}</td>
                     <td>{{this.rate}}</td>
                     <td><a href="javascript:void(0);" onclick="moveText([{{this.room_id}}, '{{this.room_name}}', '{{this.rate}}'], ['room_id_update', 'room_name_update', 'rate_update'])">Edit</a></td>
-                    <td><a href="javascript:void(0);" onclick="moveText([{{this.room_id}}, '{{this.room_name}}'], ['room_id_delete', 'room_name_delete'])">Delete</a></td>
+                    <td><a href="javascript:void(0);" onclick="moveText([{{this.room_id}}, '{{this.room_name}}', '{{this.rate}}'], ['room_id_delete', 'room_name_delete', 'rate_delete'])">Delete</a></td>
                 </tr>
                 {{/each}}                
             </tbody>
         </table>
     </div>
 
-    <div class="add-room-form">
+    <div class="addform">
         <form class="add-room-form" method="POST" action="/add-room-form">
             <fieldset>
                 <legend><strong>Add New Room Type</strong></legend>
                 <label for="add-room-name"><b>Room Name: </b></label>
-                <input type="text" id="add-room-name" name="add-room-name" required>
+                <input type="text" id="add-room-name" name="add-room-name" required><br>
 
                 <label for="add-rate"><b>Rate: </b></label>
-                <input type="text" id="add-rate" name="add-rate" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required>
+                <input type="text" id="add-rate" name="add-rate" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required><br>
             </fieldset>
-            <input type="submit" value="Submit">
+            <div class="buttons" align="center"> 
+                <input type="submit" value="Submit">
+            </div>
           </form>
     </div>
 
-    <div class="update-form" style="display:none">
+    <div class="updateform" style="display:none">
         <form id="update-room-form">
             <fieldset>
                 <legend><strong>Update Existing Room Type</strong></legend>
                     <p style="display:inline"><b>Room ID: </b></p>
-                    <p id="room_id_update" style="display:inline"></p>
+                    <p id="room_id_update" style="display:inline"></p><br>
 
                 <label for="room_name_update"><b>Room Name: </b></label>
-                <input type="text" id="room_name_update" name="room_name_update" required>
+                <input type="text" id="room_name_update" name="room_name_update" required><br>
 
                 <label for="rate_update"><b>Rate: </b></label>
-                <input type="text" id="rate_update" name="rate_update" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required>
+                <input type="text" id="rate_update" name="rate_update" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required><br>
             </fieldset>
-            <input type="submit" value="Submit">
+            <div class="buttons" align="center"> 
+                <input type="submit" value="Submit">
+            </div>
           </form>
           <script src="./js/update_room_types.js"></script>
     </div>
 
-    <div class="delete-form" style="display:none">
+    <div class="deleteform" id="deleteform" style="display:none">
         <form>
             <fieldset>
                 <legend><strong>Delete Existing Room Type</strong></legend>
                 <p>Click Confirm to delete the following room type:</p>
                     <p style="display:inline"><b>Room ID: </b></p>
-                    <p id="room_id_delete" style="display:inline"></p>
+                    <p id="room_id_delete" style="display:inline"></p><br>
 
                     <p style="display:inline"><b>Room Name: </b></p>
-                    <p id="room_name_delete" style="display:inline"></p>
+                    <p id="room_name_delete" style="display:inline"></p><br>
+
+                    <p style="display:inline"><b>Rate: </b></p>
+                    <p id="rate_delete" style="display:inline"></p><br>
 
             </fieldset>
-            <input type="button" value="Confirm" onclick="deleteRoom(document.getElementById('room_id_delete').innerHTML)">
+            <div class="buttons" align="center"> 
+                <input type="button" value="Confirm" onclick="deleteRoom(document.getElementById('room_id_delete').innerHTML)">
+            </div> 
           </form>
           <script src="./js/delete_room.js"></script>
     </div>

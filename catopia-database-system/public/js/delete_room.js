@@ -23,7 +23,7 @@ function deleteRoom(roomID) {
     xhttp.send(JSON.stringify(data));
   }
   
-  function deleteRow(roomID){
+function deleteRow(roomID){
       let table = document.getElementById("room-table");
       for (let i = 0, row; row = table.rows[i]; i++) {
          if (table.rows[i].getAttribute("data-value") == roomID) {
@@ -32,4 +32,4 @@ function deleteRoom(roomID) {
               break;
          }
       }
-  }
+}

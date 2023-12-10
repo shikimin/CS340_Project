@@ -14,7 +14,7 @@
 <body>
     <h1>Services</h1>
 
-    <div id="tablediv">
+    <div class="table">
         <table id="service-table" border="1" cellpadding="5">
             <caption style="text-align:left"><strong>Browse existing services:</strong></caption>
             <thead>
@@ -46,12 +46,14 @@
             <fieldset>
                 <legend><strong>Add New Service</strong></legend>
                 <label for="service_name"><b>Service Name:  </b></label>
-                <input type="text" id="service_name" name="service_name" required>
+                <input type="text" id="service_name" name="service_name" required><br>
 
                 <label for="price"><b>Price: </b></label>
-                <input type="text" id="price" name="price" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required>
+                <input type="text" id="price" name="price" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required><br>
             </fieldset>
-            <input type="submit" value="Submit">
+            <div class="buttons" align="center">   
+                <input type="submit" value="Submit">
+            </div>
           </form>
     </div>
     
@@ -61,15 +63,17 @@
             <fieldset>
                 <legend><strong>Update Existing Service</strong></legend>
                 <p style="display:inline"><b>Service ID: </b> </p>
-                <p id="service_id_update" style="display:inline"></p>
+                <p id="service_id_update" style="display:inline"></p><br>
 
                 <label for="service_name"><b>Service Name:  </b></label>
-                <input type="text" id="service_name_update" name="service_name_update" required>
+                <input type="text" id="service_name_update" name="service_name_update" required><br>
 
                 <label for="price"><b>Price: </b></label>
-                <input type="text" id="price_update" name="price_update" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required>
+                <input type="text" id="price_update" name="price_update" pattern="[0-9]+([.]?[0-9]{2})?" placeholder="99.99" required><br>
             </fieldset>
-            <input type="submit" value="Submit">
+            <div class="buttons" align="center">   
+                <input type="submit" value="Submit">
+            </div>
           </form>
           <script src="../js/update_service.js"></script>
     </div>
@@ -81,12 +85,14 @@
                 <legend><strong>Delete Existing Service</strong></legend>
                 <p>Click Confirm to delete the following service:</p>
                 <p style="display:inline"><b>Service ID: </b> </p>
-                <p id="service_id_delete" style="display:inline"></p>
+                <p id="service_id_delete" style="display:inline"></p><br>
 
                 <p style="display:inline"><b>Service Name: </b></p>
-                <p id="service_name_delete" style="display:inline"></p>
+                <p id="service_name_delete" style="display:inline"></p><br>
             </fieldset>
-            <input type="button" value="Confirm" onclick="deleteService(document.getElementById('service_id_delete').innerHTML)">
+            <div class="buttons" align="center">     
+                <input type="button" value="Confirm" onclick="deleteService(document.getElementById('service_id_delete').innerHTML)">
+            </div>   
         </form>
         <script src="../js/delete_service.js"></script>
     </div>

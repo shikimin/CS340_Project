@@ -11,7 +11,7 @@
 </head>
 <body>
     <h1>Customers</h1>
-    <div id="tablediv">
+    <div class="table">
         <table id="customer-table" border="1" cellpadding="5">
             <caption style="text-align:left"><strong>Browse existing customers:</strong></caption>
             <thead>
@@ -43,15 +43,17 @@
             <fieldset>
                 <legend><strong>Add New Customer</strong></legend>
                 <label for="first_name"><b>First Name: </b> </label>
-                <input type="text" id="first_name" name="first_name" required>
+                <input type="text" id="first_name" name="first_name" required><br>
                 
                 <label for="last_name_add"><b>Last Name: </b> </label>
-                <input type="text" id="last_name" name="last_name" required>
+                <input type="text" id="last_name" name="last_name" required><br>
 
                 <label for="phone"><b>Phone Number: </b> </label>
                 <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="1234567890" required><br>
             </fieldset>
-            <input type="submit" value="Submit">
+            <div class="buttons" align="center"> 
+                <input type="submit" value="Submit">
+            </div>
           </form>
     </div>
 
@@ -61,18 +63,20 @@
             <fieldset>
                 <legend><strong>Update Existing Customer</strong></legend>
                 <p style="display:inline"><b>Customer ID: </b></p>
-                <p id="customer_id_update" style="display:inline"></p>
+                <p id="customer_id_update" style="display:inline"></p><br>
 
                 <label for="first_name_update"><b>First Name: </b> </label>
-                <input type="text" id="first_name_update" name="first_name_update" required>
+                <input type="text" id="first_name_update" name="first_name_update" required><br>
 
                 <label for="last_name_update"><b>Last Name: </b> </label>
-                <input type="text" id="last_name_update" name="last_name_update" required>
+                <input type="text" id="last_name_update" name="last_name_update" required><br>
 
                 <label for="phone_update"><b>Phone Number: </b></label>
                 <input type="tel" id="phone_update" name="phone_update" pattern="[0-9]{10}" placeholder="1234567890" required><br>
             </fieldset>
+            <div class="buttons" align="center"> 
             <input type="submit" value="Submit">
+            </div>
           </form>
           <script src="../js/update_customer.js"></script>
     </div>

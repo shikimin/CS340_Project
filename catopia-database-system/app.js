@@ -77,6 +77,7 @@ app.get('/customers', function(req, res)
 app.get('/reservations', function(req, res) {
     let query = `SELECT Reservations.res_id AS "res_id", 
                 CONCAT(Customers.first_name, " ", Customers.last_name) AS "customer_name", 
+                Reservations.cat_id AS "cat_id",
                 CASE
                     WHEN Reservations.cat_id IS NULL THEN ""
                     ELSE Cats.cat_name

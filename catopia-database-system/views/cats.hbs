@@ -58,12 +58,15 @@
                         {{#each customers}}
                         <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                         {{/each}}
-                        </select>
+                        </select><br>
 
                     <label for="cat_name"><b>Cat Name: </b> </label>
                     <input type="text" id="cat_name" name="cat_name" required>
                 </fieldset>
-                <input type="submit" value="Submit">
+
+                <div class="buttons" align="center"> 
+                    <input type="submit" value="Submit">
+                </div>
             </form>
         </div>
 
@@ -73,7 +76,7 @@
                 <fieldset>
                     <legend><strong>Update Existing Cat</strong></legend>
                     <p style="display:inline"><b>Cat ID: </b> </p>
-                    <p id="cat_id_update" style="display:inline"></p>
+                    <p id="cat_id_update" style="display:inline"></p><br>
 
                     <label for="customer_id_update"><b>Customer: </b> </label>
                     <select name="customer_id_update" id="customer_id_update" required>
@@ -81,12 +84,14 @@
                         {{#each customers}}
                         <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                         {{/each}}
-                        </select>
+                    </select><br>
 
                     <label for="cat_name_update"><b>Cat Name: </b> </label>
-                    <input type="text" id="cat_name_update" name="cat_name_update" required>
+                    <input type="text" id="cat_name_update" name="cat_name_update" required><br>
                 </fieldset>
-                <input type="submit" value="Submit">
+                <div class="buttons" align="center">                
+                    <input type="submit" value="Submit">
+                </div>
             </form>
             <script src="../js/update_cat.js"></script>
         </div>
@@ -98,12 +103,14 @@
                     <legend><strong>Delete Existing Cat</strong></legend>
                     <p>Click Confirm to delete the following cat:</p>
                     <p style="display:inline"><b>Cat ID: </b> </p>
-                    <p id="cat_id_delete" style="display:inline"></p>
+                    <p id="cat_id_delete" style="display:inline"></p><br>
 
                     <p style="display:inline"><b>Cat Name: </b> </p>
-                    <p id="cat_name_delete" style="display:inline"></p>
-                </fieldset>
-                <input type="button" value="Confirm" onclick="deleteCat(document.getElementById('cat_id_delete').innerHTML)">
+                    <p id="cat_name_delete" style="display:inline"></p><br>
+                </fieldset>            
+                <div class="buttons" align="center"> 
+                    <input type="button" value="Confirm" onclick="deleteCat(document.getElementById('cat_id_delete').innerHTML)">
+                </div>
             </form>
             <script src="../js/delete_cat.js"></script>
         </div>
