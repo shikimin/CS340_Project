@@ -77,11 +77,10 @@ p, label {
 
 /* navbar */
 .navbar { 
-    margin: 2vw 0;
+    margin: 1vw 0;
     text-align: center;
     font-size: 20px;
 	align-items: center;
-	justify-content: space-between;
     
 }
 
@@ -89,7 +88,7 @@ p, label {
     font-size: 16px;
     text-decoration: none;
     color: #273e3a;
-    padding: 2vw;
+    padding: 1vw;
 }
 
 a:hover{
