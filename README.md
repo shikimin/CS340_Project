@@ -27,6 +27,7 @@ Here's a visual tour of Catopia in action:
 <img width="600" alt="image" src="https://github.com/shikimin/CS340_Project/assets/104303140/a4ad1eac-7891-43dc-b22b-496a7487e61a">
 
 ## Citation
+All code is based on the CS 340 starter code https://github.com/osu-cs340-ecampus/nodejs-starter-app
 
 ---
 
