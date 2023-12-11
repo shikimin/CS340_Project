@@ -107,7 +107,7 @@ VALUES
     ('Single', 40.32),
     ('Double', 50.28),
     ('Master', 60.84),
-    ('Master', 78.98);
+    ('Emperor', 78.98);
 
 
 INSERT INTO Reservations (
