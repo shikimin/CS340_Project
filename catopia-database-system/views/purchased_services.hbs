@@ -64,7 +64,7 @@
                         {{#each services}}
                         <option value="{{this.service_id}}">{{this.services_dropdown}}</option>
                         {{/each}}
-                        </select><br>
+                        </select>*required<br>
 
                     <label for="res_id"><b>Reservation: </b> </label>
                     <select name="res_id" id="res_id" required>
@@ -72,10 +72,10 @@
                         {{#each reservations}}
                         <option value="{{this.res_id}}">{{this.reservations_dropdown}}</option>
                         {{/each}}
-                    </select><br>
+                    </select>*required<br>
 
                     <label for="quantity"><b>Quantity: </b> </label>
-                    <input type="number" id="quantity" name="quantity" min="1" required><br>
+                    <input type="number" id="quantity" name="quantity" min="1" required>*required<br>
                 </fieldset>
                 <div class="buttons" align="center"> 
                     <input type="submit" value="Submit">
@@ -97,7 +97,7 @@
                         {{#each services}}
                         <option value="{{this.service_id}}">{{this.services_dropdown}}</option>
                         {{/each}}
-                        </select><br>
+                        </select>*required<br>
 
                     <label for="reservation_update"><b>Reservation: </b> </label>
                     <select name="reservation_update" id="reservation_update" required>
@@ -105,10 +105,10 @@
                         {{#each reservations}}
                         <option value="{{this.res_id}}">{{this.reservations_dropdown}}</option>
                         {{/each}}
-                    </select><br>
+                    </select>*required<br>
 
                     <label for="quantity_update"><b>Quantity: </b> </label>
-                    <input type="number" id="quantity_update" name="quantity_update" min="1" required>
+                    <input type="number" id="quantity_update" name="quantity_update" min="1" required>*required
                 </fieldset>
                 <div class="buttons" align="center"> 
                     <input type="submit" value="Submit">

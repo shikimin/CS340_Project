@@ -64,10 +64,10 @@
                         {{#each customers}}
                         <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                         {{/each}}
-                        </select><br>
+                        </select>*required<br>
 
                     <label for="cat_name"><b>Cat Name: </b> </label>
-                    <input type="text" id="cat_name" name="cat_name" required>
+                    <input type="text" id="cat_name" name="cat_name" required>*required
                 </fieldset>
 
                 <div class="buttons" align="center"> 
@@ -90,10 +90,10 @@
                         {{#each customers}}
                         <option value="{{this.customer_id}}">{{this.customer_dropdown}}</option>
                         {{/each}}
-                    </select><br>
+                    </select>*required<br>
 
                     <label for="cat_name_update"><b>Cat Name: </b> </label>
-                    <input type="text" id="cat_name_update" name="cat_name_update" required><br>
+                    <input type="text" id="cat_name_update" name="cat_name_update" required>*required<br>
                 </fieldset>
                 <div class="buttons" align="center">                
                     <input type="submit" value="Submit">
